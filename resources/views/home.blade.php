@@ -247,7 +247,7 @@
             </div>
             
             <!-- Card 4: Material Details -->
-            <div class="col-xl-3 col-lg-6 col-md-6 col-12 mb-4">
+            <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-12 mb-4">
                 <div class="stats-card bg-gradient-purple text-left" onclick="navigateTo('{{ route('material_details.material_detail.index') }}')">
                     <div>
                         <div class="card-title-sub">Material Details</div>
@@ -257,7 +257,7 @@
                         <i class="fas fa-boxes"></i>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         
         <!-- Charts Row -->
