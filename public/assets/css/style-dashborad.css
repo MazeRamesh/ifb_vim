@@ -1,0 +1,65 @@
+a.brand-link.elevation-1 {
+    background: #2832ab;
+}
+
+.bg-nav {
+    background-color: #2832ab !important;
+    color: #fff !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #fff !important;
+}
+.four-grids {
+    /* background: #fff; */
+    padding: 2em 3em;
+    text-align: center;
+}
+
+.four-grid1 {
+    background: #68b828;
+}
+
+.chart {
+    background: #68b828;
+}
+
+.four-grid2 {
+    background: #7c38bc;
+}
+
+.four-grid3 {
+    background: #f7aa47;
+}
+
+.four-grid4 {
+    background: #0e62c7;
+}
+
+.four-grid h3 {
+    font-size: 1.2em;
+    padding: 1em 0 0.5em;
+    color: #fff;
+}
+
+.four-grid h4 {
+    font-size: 2em;
+    color: #fff;
+    padding-bottom: .5em;
+    font-weight: 600;
+}
+
+.icon {
+    font-size: 1.5em;
+    border-radius: 62px;
+    border: 3px solid #fff;
+    padding: 1em;
+    /* background: #34495e; */
+    color: #fff;
+    position: relative;
+    bottom: 1rem;
+}
+
+/* .icon  {
+    margin-top: -1.8em;
+} */

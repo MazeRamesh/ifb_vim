@@ -1,0 +1,74 @@
+[
+    {
+        "model-name": "Customer",
+        "resource-file": "customers.json"
+    },
+    {
+        "model-name": "Customertables",
+        "resource-file": "customertables.json"
+    },
+    {
+        "model-name": "location",
+        "resource-file": "locations.json"
+    },
+    {
+        "model-name": "Uom",
+        "resource-file": "uoms.json"
+    },
+    {
+        "model-name": "Taxtypes",
+        "resource-file": "taxtypes.json"
+    },
+    {
+        "model-name": "Products",
+        "resource-file": "products.json"
+    },
+    {
+        "model-name": "Vchtypes",
+        "resource-file": "vchtypes.json"
+    },
+    {
+        "model-name": "company",
+        "resource-file": "companies.json"
+    },
+    {
+        "model-name": "clientcompany",
+        "resource-file": "clientcompanies.json"
+    },
+    {
+        "model-name": "salesheader",
+        "resource-file": "salesheaders.json"
+    },
+    {
+        "model-name": "salesdetails",
+        "resource-file": "salesdetails.json"
+    },
+    {
+        "model-name": "emplayee",
+        "resource-file": "emplayees.json"
+    },
+    {
+        "model-name": "poheader",
+        "resource-file": "poheaders.json"
+    },
+    {
+        "model-name": "podetails",
+        "resource-file": "podetails.json"
+    },
+    {
+        "model-name": "transport",
+        "resource-file": "transports.json"
+    },
+    {
+        "model-name": "Productmap",
+        "resource-file": "productmaps.json"
+    },
+    {
+        "model-name": "Quotation",
+        "resource-file": "quotations.json"
+    },
+    {
+        "model-name": "MaterialDetail",
+        "resource-file": "material_details.json"
+    }
+]
