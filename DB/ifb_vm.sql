@@ -20,8 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `basf_vim`
 --
-CREATE DATABASE IF NOT EXISTS `basf_vim` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `basf_vim`;
+CREATE DATABASE IF NOT EXISTS `ifb_vim` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `ifb_vim`;
 
 -- --------------------------------------------------------
 
