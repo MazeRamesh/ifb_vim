@@ -18,6 +18,8 @@
     }
     .page-container {
         width: 100%;
+        /* height: 730px; */
+
         border: 1.5px solid #000;
         border-radius: 15px;
         box-sizing: border-box;
@@ -54,6 +56,9 @@
     }
     .font-bold {
         font-weight: bold;
+    }
+    .border{
+        border-bottom: none !important;
     }
 </style>
 </head>
@@ -239,30 +244,54 @@
     </thead>
     <tbody>
         @foreach($data as $index => $row)
-        <tr style="font-size: 7.5px;  height: 50px;">
-            <td class="text-center" style="border-left: none; padding: 15px 3px; vertical-align: top;">{{ $index + 1 }}</td>
-            <td class="text-center" style="padding: 15px 3px; vertical-align: top;">{{ $row->ItemNumber ?? '10' }}</td>
-            <td class="text-center" style="padding: 15px 3px; vertical-align: top;">{{ $row->customerPartno ?? '' }}</td>
-            <td class="text-left" style="padding: 15px 3px; vertical-align: top; line-height: 1.2;">{{ $row->productname ?? '' }}</td>
-            <td class="text-center" style="padding: 15px 3px; vertical-align: top;">{{ $row->ponumber ?? '' }}</td>
-            <td class="text-center" style="padding: 15px 3px; vertical-align: top;">{{ $row->producthsncode ?? '' }}</td>
-            <td class="text-center" style="padding: 15px 3px; vertical-align: top;">{{ $row->productqty ?? 0 }}</td>
-            <td class="text-center" style="padding: 15px 3px; vertical-align: top;">{{ $row->uom_id ?: 'EA' }}</td>
-            <td class="text-right" style="padding: 15px 3px; vertical-align: top;">{{ !empty($row->productsellingrate) ? sprintf("%.2f", $row->productsellingrate) : '0.00' }}</td>
-            <td class="text-center" style="padding: 15px 3px; vertical-align: top;"></td>
-            <td class="text-right" style="padding: 15px 3px; vertical-align: top;"></td>
-            <td class="text-right" style="padding: 15px 3px; vertical-align: top;">{{ !empty($row->netamount) ? sprintf("%.2f", $row->netamount) : '0.00' }}</td>
-            <td class="text-right" style="padding: 15px 3px; vertical-align: top;">0.00</td>
-            <td class="text-right" style="padding: 15px 3px; vertical-align: top;">{{ !empty($row->taxableamount) ? sprintf("%.2f", $row->taxableamount) : '0.00' }}</td>
-            <td class="text-center" style="padding: 15px 3px; vertical-align: top;">{{ $row->cgst_per ? $row->cgst_per.'%' : '' }}</td>
-            <td class="text-right" style="padding: 15px 3px; vertical-align: top;">{{ !empty($row->productcgstamount) ? sprintf("%.2f", $row->productcgstamount) : '' }}</td>
-            <td class="text-center" style="padding: 15px 3px; vertical-align: top;">{{ $row->sgst_per ? $row->sgst_per.'%' : '' }}</td>
-            <td class="text-right" style="padding: 15px 3px; vertical-align: top;">{{ !empty($row->productsgstamount) ? sprintf("%.2f", $row->productsgstamount) : '' }}</td>
-            <td class="text-center" style="padding: 15px 3px; vertical-align: top;">{{ $row->igst_per ? $row->igst_per.'%' : '' }}</td>
-            <td class="text-right" style="border-right: none; padding: 15px 3px; vertical-align: top;">{{ !empty($row->productigstamount) ? sprintf("%.2f", $row->productigstamount) : '' }}</td>
+        <tr style="font-size: 7.5px;  height: 50px; border-top: none; border-bottom: none;">
+            <td class="text-center" style="border-left: none; padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $index + 1 }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->ItemNumber ?? '10' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->customerPartno ?? '' }}</td>
+            <td class="text-left" style="padding: 15px 3px; vertical-align: top; line-height: 1.2; border-bottom: 0 !important;">{{ $row->productname ?? '' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->ponumber ?? '' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->producthsncode ?? '' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->productqty ?? 0 }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->uom_id ?: 'EA' }}</td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ !empty($row->productsellingrate) ? sprintf("%.2f", $row->productsellingrate) : '0.00' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ !empty($row->netamount) ? sprintf("%.2f", $row->netamount) : '0.00' }}</td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">0.00</td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ !empty($row->taxableamount) ? sprintf("%.2f", $row->taxableamount) : '0.00' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->cgst_per ? $row->cgst_per.'%' : '' }}</td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ !empty($row->productcgstamount) ? sprintf("%.2f", $row->productcgstamount) : '' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->sgst_per ? $row->sgst_per.'%' : '' }}</td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ !empty($row->productsgstamount) ? sprintf("%.2f", $row->productsgstamount) : '' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->igst_per ? $row->igst_per.'%' : '' }}</td>
+            <td class="text-right" style="border-right: none; padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ !empty($row->productigstamount) ? sprintf("%.2f", $row->productigstamount) : '' }}</td>
         </tr>
         @endforeach
 
+  @for($i = count($data); $i < 3; $i++)
+        <tr style="font-size: 7.5px;  height: 50px;" >
+            <td class="text-center" style="border-left: none; padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-left" style="padding: 15px 3px; vertical-align: top; line-height: 1.2; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="border-right: none; padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+        </tr>
+        @endfor
         <tr class="font-bold" style="background-color: #f9f9f9; font-size: 7.5px; height: 18px;">
             <td colspan="6" class="text-right" style="border-left: none; padding: 4px 3px;">Total</td>
             <td class="text-center" style="padding: 4px 3px;">{{ $data[0]->tot_qty ?? 0 }}</td>
@@ -343,7 +372,7 @@
                 <tr>
                     <td colspan="2" style="border: none; text-align: center; padding-top: 5px; padding-bottom: 2px;">
                         <div style="font-size: 8px; font-weight: bold; margin-bottom: 30px;">For IFB Industries Ltd</div>
-                        <div style="font-size: 7.5px; vertical-align: bottom;">Authorized Signatory</div>
+                        <div style="font-size: 7.5px; margin-top: 50px;">Authorized Signatory</div>
                     </td>
                 </tr>
             </table>
