@@ -1,865 +1,450 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <title>{{ $data[0]->invoiceno }}</title>
-    <meta charset="utf-8">
-    <style>
-        td {
-            padding-left: 5px;
-            padding-top: 3px;
-            padding-bottom: 3px;
-        }
-    </style>
+<meta charset="utf-8">
+<title>Tax Invoice</title>
+<style>
+    @page {
+        size: A4 landscape;
+        margin: 25px;
+    }
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        line-height: 1;
+        color: #000;
+        margin: 0;
+        padding: 0;
+    }
+    .page-container {
+        width: 100%;
+        /* height: 730px; */
+
+        border: 1.5px solid #000;
+        border-radius: 15px;
+        box-sizing: border-box;
+        padding: 0;
+        position: relative;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    td, th {
+        padding: 2.5px 4px;
+        border: 0.5px solid #000;
+        vertical-align: top;
+        font-size: 11px;
+    }
+    th {
+        font-weight: bold;
+        background-color: #f2f2f2;
+        text-align: center;
+    }
+    .no-border-table td {
+        border: none;
+        padding: 1.5px 0;
+    }
+    .text-center {
+        text-align: center;
+    }
+    .text-right {
+        text-align: right;
+    }
+    .text-left {
+        text-align: left;
+    }
+    .font-bold {
+        font-weight: bold;
+    }
+    .border{
+        border-bottom: none !important;
+    }
+</style>
 </head>
-@for ($i = 0; $i < count($a); $i++)
-    @for ($k = 0; $k < $Barcodecount; $k++)
-
-        <body style="font-size:9px;font-weight:500;padding:0px;margin:0px; ">
-
-            <table border="1" style="width:100%;border-collapse: collapse; border-top-left-radius:70%;">
-                <tbody>
-
-                    <tr>
-                        <td style="width:80%;text-align: center;font-weight: bold;border-right:0ch;">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            GST INVOICE<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                                style="font-size:6px;">(Under section 31 of the Central Goods & Service Tax Act 2017 Read
-                                with GST Invoice Rule)</span></td>
-                        <td style="text-align:right;padding-right:4px;border-left:0ch;"> <b>
-                                @if ($a[$i] == 'original')
-                                    <strong>ORIGINAL</strong>FOR RECIPIENT
-                                @elseif($a[$i] == 'duplicate')
-                                    <strong>DUPLICATE</strong>FOR TRANSPORTER
-                                @elseif($a[$i] == 'triplicate')
-                                    <strong>TRIPLICATE</strong>FOR SUPPLIER
-                                @else($a[$i]=="extra")
-                                    <strong>EXTRA COPY</strong>
-                                @endif
-                            </b> </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table style="width: 100%;border-collapse:collapse;border-top: 0ch;" border="1" style="">
-                <tbody>
-                    <tr>
-                        <td style="width: 15%;vertical-align: baseline;">
-                            <?php $image_path = '/img/Logo.jpg'; ?>
-                            <img src="{{ public_path() . $image_path }}" alt="" srcset=""
-                                style="width:170px;">
-                        </td>
-                        <td style="width:30%;"> <b style="font-size: 12px;">BASF Catalyst India Pvt. Ltd.</b> <br>
-                            Plot No:P8/1, Veerapuram Village, <br>
-                            Mahindra World City, Chengelpet Taluk, <br>
-                            Kanchipuram District – <br>
-                            Tamil Nadu 603002, <br>
-                            India</td>
-                        <td style="border-right:0ch;"> <b style="font-size: 10px;"> GST Invoice No.</b> &nbsp;&nbsp; <b
-                                style="font-size: 10px;">: {{ $data[0]->invoiceno }}</b> <br>
-                            Internal Doc No.</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b style="font-size: 10px;">:
-                                {{ $data[0]->billno }}</b> <br>
-                            Invoice Issue Date &nbsp;&nbsp; : {{ $data[0]->invoicedate }}<br>
-                            CIN No
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            : U27105MH1997PTC199824<br>
-                            EWB
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            : {{ $data[0]->ewaybillno }}<br>
-                            Valid till
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            : {{ $data[0]->validUpto }}
-                        </td>
-                        <td style="width:10%;border-left:0ch;">
-                            <img src="{{ $irn_barcode[$k] }}" alt=""
-                                style="width: 75px;height:75px;">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold;">GSTIN No : &nbsp;33AAACE2545B1ZD</td>
-                        <td style="font-weight: bold;">PAN No : &nbsp;AAACE2545B</td>
-                        <td style="font-weight: bold;border-right:0ch;">Vendor Code :&nbsp;T00N</td>
-                        <td style="width:15%;border-left:0ch;"> </td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- DivTable.com -->
-            <table style="width: 100%;border-collapse:collapse;border-top: 0ch;" border="1" style="">
-                <tbody>
-                    <tr>
-			@if($data[0]->customerBillingGSTINno == "27AAACH2364M1ZF")
-			    <td style="width: 50%;"> Detail Of Receiver(BillTo) : <br>
-                            <b> HYUNDAI MOTOR INDIA LIMITED
-                            </b> <br>
-                            A-16, MIDC PHASE II EXPANSION, TALEGAON MIDC -410507,<br>
-                            PUNE, MAHARASHTRA, INDIA<br>
-                            GST IN: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; <b> 27AAACH2364M1ZF </b> <br>
-                            State Code :&nbsp;&nbsp;&nbsp;&nbsp;<b> 27</b> <br>
-                            State Name :&nbsp;&nbsp;&nbsp;&nbsp;<b>Maharashtra</b>
-                        </td>
-			@else
-			    <td style="width: 50%;"> Detail Of Receiver(BillTo) : <br>
-                            <b> HYUNDAI MOTOR INDIA LIMITED
-                            </b> <br>
-                            H1 SIPCOT INDUSTRIAL PARK, IRRUNGATTUKOTTAI,<br>
-                            SRIPERUMBUDUR TK, TAMIL NADU - 602105, INDIA<br>
-                            GST IN: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; <b> 33AAACH2364M1ZM </b> <br>
-                            State Code :&nbsp;&nbsp;&nbsp;&nbsp;<b> 33</b> <br>
-                            State Name :&nbsp;&nbsp;&nbsp;&nbsp;<b>Tamil Nadu</b>
-                        </td>
-			@endif 
-                        
-                        @if($data[0]->customerShippingName1 == "FAURECIA EMISSIONS CONTROL")
-                        <td style="width: 50%;"> Consignee(Shipped To) : <br>
-                            <b> FAURECIA EMISSIONS CONTROL TECHNOLOGIES INDIA PRIVATE LIMITED
-                            </b> <br>
-                            KIADB INDUSTRIAL AREA BIDADI, PLOT NO. 1,<br>
-                            FAURECIA, 562109 RAMANAGARA, INDIA<br>
-                            GST IN: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; <b> 29AAACA8450F1ZQ </b> <br>
-                            State Code :&nbsp;&nbsp;&nbsp;&nbsp;<b> 29</b> <br>
-                            State Name :&nbsp;&nbsp;&nbsp; <b>Karnataka</b>
-                        </td>
-                        @elseif($data[0]->customerShippingName1 == "SHARDA MOTOR INDUSTRIES LIMITED")
-                        <td style="width: 50%;"> Consignee(Shipped To) : <br>
-                            <b> SHARDA MOTOR INDUSTRIES LIMITED
-                            </b> <br>
-                            G-20 SIPCOT INDUSTRIAL, IRRUNGATTUKOTTAI,<br>
-                            SRIPERUMPUDUR-KANCHEEPURAM, TAMIL NADU - 602117, INDIA<br>
-                            GST IN: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; <b> 33AAACS6855J1Z5 </b> <br>
-                            State Code :&nbsp;&nbsp;&nbsp;&nbsp;<b> 33</b> <br>
-                            State Name :&nbsp;&nbsp;&nbsp; <b>Tamil Nadu</b>
-                        </td>
-                        @else
-                        <td style="width: 50%;"> Consignee(Shipped To) : <br>
-                            <b> HYUNDAI MOTOR INDIA LIMITED
-                            </b> <br>
-                            H1 SIPCOT INDUSTRIAL PARK, IRRUNGATTUKOTTAI,<br>
-                            SRIPERUMBUDUR TK, TAMIL NADU - 602105, INDIA<br>
-                            GST IN: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; <b> 33AAACH2364M1ZM </b> <br>
-                            State Code :&nbsp;&nbsp;&nbsp;&nbsp;<b> 33</b> <br>
-                            State Name :&nbsp;&nbsp;&nbsp; <b>Tamil Nadu</b>
-                        </td>
-                        @endif 
-                    </tr>
-
-                </tbody>
-            </table>
-            <!-- DivTable.com -->
-            <table style="border-top:0ch;border-collapse:collapse;width: 100%;" border="1">
-                <tbody>
-                    <tr style="font-size: 8px;text-align: center;">
-                        <td style="width: 2%;">
-
-                            SI
-
-                        </td>
-                        <td style="width: 5%;">
-
-                            Item Code
-
-                        </td>
-                        <td style="width: 5%;">
-
-                            Shop Code
-
-                        </td>
-                        <td style="width: 3%;">
-
-                            PO No.
-
-                        </td>
-                        <td style="width: 5%;">
-
-                            PO Month
-
-                        </td>
-                        <td style="">
-
-                            Internal Part No.
-
-                        </td>
-                        <td style="width:10%;">
-
-                            Customer Part No.
-
-                        </td>
-                        <td style="width:17%;">
-
-                            Part Name
-
-                        </td>
-                        <td style="width: 5%;">
-
-                            HSN Code
-
-                        </td>
-
-                        <td style="width: 2%;">
-
-                            No.of.Cases
-
-                        </td>
-                        <td style="width: 5%;">
-
-                            UOM
-
-                        </td>
-                        <td style="">
-
-                            QTY
-
-                        </td>
-                        <td style="width: 5%;">
-
-                            Basic Rate
-
-                        </td>
-                        <td style="width: 3%;">
-
-                            Total Cost
-
-                        </td>
-                        <td style="width: 3%;">
-
-                            Cons Part Cost
-
-                        </td>
-                        <td style="width: 3%;">
-
-                            Cons Mail Cost
-
-                        </td>
-                        <td style="width: 3%;">
-
-                            Assessable value
-
-                        </td>
-                    </tr>
-                    @foreach ($data as $key => $details)
-                        <tr style="font-size: 8px;">
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 2%;text-align: center;">
-                                {{ $key + 1 }}
-
-                            </td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%; text-align: center;">
-                                {{ $details->productcode_id }}
-                            </td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%;text-align: center;">
-                                {{ $data[0]->shopcode }}
-                            </td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 3%;text-align: left;">
-                                {{ $details->ponumber }}
-
-                            </td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%;text-align: left;">
-                                {{ $details->podate }}
-
-                            </td>
-                            <td style="border-top: 0ch;border-bottom:0ch;text-align: left;">
-                                {{ $details->productpartno }}
-
-                            </td>
-                            <td
-                                style="border-top: 0ch;border-bottom:0ch;width:10%;text-align: left;font-size: 9px !important;">
-                                {{ $details->customerPartno }}
-
-                            </td>
-                            <td
-                                style="border-top: 0ch;border-bottom:0ch;width:17%;font-size: 8px !important;text-align: left;">
-                                {{ $details->productname }}
-
-                            </td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%;text-align: center;">
-                                {{ $details->producthsncode }}
-
-                            </td>
-
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 2%;text-align: center;">
-
-
-                            </td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%;text-align: center;">
-                                {{ $details->uom_id }}
-
-                            </td>
-                            <td style="border-top: 0ch;border-bottom:0ch;text-align: center;font-size: 9px !important;">
-                                {{ $details->productqty }}
-
-                            </td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%;text-align: right;">
-                                {{ $details->productsellingrate }}
-
-                            </td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 2%;">
-
-                            </td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 3%;">
-
-                            </td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 3%;">
-
-                            </td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%;text-align: right;">
-                                {{ $details->netamount }}
-
-                            </td>
-                        </tr>
-                    @endforeach
-
-                    @for ($j = $datacount; $j < 8; $j++)
-                        <tr style="font-size: 10px;">
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 2%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 3%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width:10%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width:17%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 2%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 2%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 3%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 3%;">&nbsp;</td>
-                            <td style="border-top: 0ch;border-bottom:0ch;width: 5%;">&nbsp;</td>
-                        </tr>
-                    @endfor
-                </tbody>
-            </table>
-            <!-- DivTable.com -->
-            <!-- DivTable.com -->
-            <table style="width: 100%;border-collapse:collapse;border-top: 0ch;" valign="top"border="1"
-                style="">
-                <tbody>
-                    <tr style="padding-top:0px;padding-left: 0px;">
-                        <td style="padding-left:4px; padding-top:0px;border-right: 0ch;vertical-align: initial;">
-
-
-                            <div style="width: 47%;float:left;border:0ch;"> Vehicle No
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
-                                <br>
-                                Mode of Transport&nbsp;&nbsp;&nbsp;: <br>
-                                Payment Terms&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 30 days from Invoice
-                                date.<br>
-                            </div>
-                            <div style="width: 50%;float:right;border-left:1px solid black;padding-left: 5px;"> Through
-                                &nbsp;&nbsp;: <br>
-                                Delivery &nbsp;&nbsp;&nbsp;: <br>
-                                Freight &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <br></div>
-                            <div
-                                style="width: 100%;clear:both;border-top:1px solid black;padding-top:7px;line-height: 13px;">
-                                IRN No &nbsp;:&nbsp;&nbsp;{{ $data[0]->irn_reference_no }} <br>Electronic Reference No
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
-                                <br> Date & Time of Preparation &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <br>
-                                Date & Time of
-                                Removal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <br>
-                            </div>
-
-
-                        <td style="width: 20%;border-right: 0ch;">
-                            Less Amortization Value<br>
-                            SubTotal <br>
-                            TCS Amount <br>
-                            SGST <br>
-                            CGST <br>
-                            IGST <br>
-                            <b> Tax Amount </b> <br>
-                            <b>Total Amount</b>
-                        </td>
-                        <td style="width: 20%;font-weight: bold ; text-align:right;border-left: 0ch;">
-                            <br>
-                            {{ $data[0]->sales_total }}
-                            <br>
-                            {{ $data[0]->tcs_amount }}
-                            <br>
-                            {{ $data[0]->sgstamount }}
-                            <br>
-                            {{ $data[0]->cgstamount }}
-                            <br>
-                            {{ $data[0]->igstamount }}
-                            <br>
-                            {{ $data[0]->totaltaxamount }}
-                            <br>
-                            {{ $data[0]->grandtotalamount }}
-                        </td>
-
-
-
-                    </tr>
-
-
-
-                </tbody>
-            </table>
-            <!-- DivTable.com -->
-            <!-- DivTable.com -->
-            <table border="1" style="width:100%;border-collapse: collapse;border-top: 0ch;">
-                <tbody>
-
-                    <tr>
-                        <td style="width:100%;"> Tax Amount (in Words)
-                            &nbsp;&nbsp;&nbsp;:&nbsp;{{ $data[0]->taxamountword }}
-                            <br>
-                            Total Amount (in Words) &nbsp;:&nbsp;{{ $data[0]->grandtotalamountword }}.
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
-            <!-- DivTable.com -->
-            <table style="width: 100%;border-collapse:collapse;border-top: 0ch;" border="1" style="">
-                <tbody>
-
-                    <tr>
-                        <td style="width:25%; vertical-align: top;font-size: 7px;"> <b> BUYER DETAILS </b>
-                        </td>
-                        <td style="width:25%;vertical-align: top;font-size: 7px;"> <b>SECURITY GATE ENTRY</b>
-                        </td>
-                        <td style="width:25%;vertical-align: top;font-size: 6px;"> <strong>RECEIPT
-                                ACKNOWLOGEMENT</strong> <br>
-
-
-                            LOCATION
-                            &nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            QTY RECD :<br>
-                            SIGNATURE
-                            :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            STAMP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-
-
-                        </td>
-                        <td style="width:25%;vertical-align: top;font-size: 6px;"> <b>SRV NO :</b> <br>
-
-                            <span style="font-size: 6px;"> Applicable Examption Notification No.Date </span>
-
-
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- DivTable.com -->
-            <table style="width: 100%;border-collapse:collapse;border-top: 0ch;" border="1" style="">
-                <tbody>
-                    <tr>
-                        <td style="width: 30%;padding: 5px;padding-top:0px;padding-left: 25px;padding-bottom: 15px;">
-                            <p
-                                style="text-align:center;padding:0px;margin:0px;margin-bottom:6px;margin-top:2px;font-size: 11px;">
-                                Invoice Number : {{ $data[0]->invoiceno }}</p>
-
-                            <img src="{{ $customer_barcode[$k] }}" alt=""
-                                style="width: 250px;height:250px;">
-                        </td>
-
-                        <td style="width: 40%;padding-left:0px; vertical-align:top;   padding-top: 0px;">
-
-
-                            <div
-                                style="width: 100%;text-align: justify;padding:5px;border-bottom: 1px solid black;font-size: 7px;">
-                                <b> Terms:</b>
-                                &nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Electronic
-                                funds transfer, please remit to Bank Name & Adderss:CITIBANK,GTS-ICG
-                                Operation,Grount Floor,No.163,Anna Salai,Chennai-600002.
-                                Account No:0521441003
-                                IFSC/NEFT Code:CITI0000003
-                                SWIFT Code:CITIINBX
-                                MICR Code:600037002
-                                <br><br>
-                                Registerd Office : BASF CATALYSTS INDIA PVT. LTD.<br>
-                                The Capital, 'A', Wing, 1204-C, 12th floor,<br>
-                                Plot No.C-70, 'G' Block, Bandra Kurla Complex,<br>
-                                Badndra(EAST), Mumbai-400051.
-                            </div>
-
-                            <!--  </div> -->
-                            <div style="text-align: center;width: 100%;font-size: 11px;">
-
-                                <b>for BASF Catalyst India Pvt. Ltd.</b>
-
-                            </div>
-                            <div style="text-align: center;padding-top: 130px;width: 100%;">
-
-                                <b>Name of the Signature</b>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-                </tbody>
-            </table>
-            <!-- DivTable.com -->
-            <!-- DivTable.com -->
-            <!-- DivTable.com -->
-
-            <!-- DivTable.com -->
-            <table style="font-weight:bold;width: 100%;border-collapse:collapse;border-top: 0ch;text-align: center;"
-                border="1" style="">
-                <tbody>
-                    <tr>
-
-                        <td style="width: 3%;">
-
-                            Vendor
-
-                        </td>
-                        <td style="width: 3%;">
-
-                            Location
-
-                        </td>
-                        <td style="width: 3%;">
-
-                            Shop Code
-                        </td>
-                        <td style="width: 3%;">
-
-                            Gate No
-
-                        </td>
-                        <td style="width: 6%;">
-
-                            Schd Date
-
-                        </td>
-                        <td style="width: 6%;">
-
-                            Recd Date
-                        </td>
-                        <td style="width: 10%;">
-
-                            MRIR No
-                        </td>
-                    </tr>
-                    <!-- Data start -->
-                    <tr>
-                        <td style="width: 3%;">
-
-                            T00N
-                        </td>
-                        <td style="width: 3%;">
-                            {{ $data[0]->location }}
-                        </td>
-                        <td style="width: 3%;">
-
-                            {{ $data[0]->shopcode }}
-
-                        </td>
-                        <td style="width: 3%;">
-
-                            {{ $data[0]->gateno }}
-
-                        </td>
-                        <td style="width: 6%;">
-
-
-                        </td>
-                        <td style="width: 6%;">
-
-
-
-                        </td>
-                        <td style="width: 12%;">
-
-
-                        </td>
-
-                    </tr><!-- Data start -->
-
-                </tbody>
-            </table>
-            <table style="width: 100%;font-weight:bold;border-collapse:collapse;border-top: 0ch;text-align: center;"
-                border="1" style="">
-                <tbody>
-                    <tr style="font-size: 8px;">
-
-                        <td style="width: 6%;">
-
-                            Part No
-
-                        </td>
-                        <td style="width: 3%;">
-
-                            Cont Type
-
-                        </td>
-                        <td style="width: 3%;">
-                            No Of Cont </td>
-                        <td style="width: 3%;">
-
-                            Stuff Qty
-                        </td>
-                        <td style="width: 4%;">
-
-                            Rec Qty
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                        </td>
-                        <td style="width: 4%;">
-
-                            Rej Qty
-
-                        </td>
-                        <td style="width: 4%;">
-
-                            Acc Qty
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                        </td>
-                        <td style="width: 4%;">
-
-
-                            Recd Qty
-                        </td>
-                        <td style="width: 18%;">
-
-                            HMI Entry Seal
-                        </td>
-                    </tr>
-                    <!-- Data start -->
-
-                    <tr style="font-size: 8px;">
-
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;text-align: left;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 11.1%;">
-
-                        </td>
-                    </tr>
-                    <tr style="font-size: 8px;">
-
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;text-align: left;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 11.1%;">
-
-                        </td>
-                    </tr>
-                    <tr style="font-size: 8px;">
-
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;text-align: left;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 11.1%;">
-
-                        </td>
-                    </tr>
-                    <tr style="font-size: 8px;">
-
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;text-align: left;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-                            &nbsp;
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 11.1%;">
-
-                        </td>
-                    </tr>
-                    <tr style="font-size: 8px;">
-
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;text-align: left;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 11.1%;">
-
-                        </td>
-                    </tr>
-                    <tr style="font-size: 8px;">
-
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;text-align: left;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 11.1%;">
-
-                        </td>
-                    </tr>
-                    <tr style="font-size: 8px;">
-
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;text-align: left;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                        </td>
-                        <td style="border-top:0ch;border-bottom:0ch;width: 11.1%;">
-
-                        </td>
-                    </tr>
-                    <!-- <tr style="font-size: 8px;">
-
-                <td style="border-top:0ch;border-bottom:0ch;width: 3%;text-align: left;">
+<body>
+
+@php
+    $copyNames = [
+        'original' => 'ORIGINAL FOR RECIPIENT',
+        'duplicate' => 'DUPLICATE FOR TRANSPORTER',
+        'triplicate' => 'TRIPLICATE FOR SUPPLIER',
+        'extra' => 'EXTRA COPY'
+    ];
+@endphp
+
+@for($copyIndex = 0; $copyIndex < count($a); $copyIndex++)
+    @php
+        $copyKey = $a[$copyIndex];
+        $copyLabel = $copyNames[$copyKey] ?? 'INVOICE COPY';
+    @endphp
+
+    <div class="page-container">
+        <!-- Top Title & Logo Section -->
+        <table style="border: none;">
+            <tr>
+                <td style=" border: none; padding: 4px; text-align: left; vertical-align: top;">
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <img src="{{ asset('assets/img/IFB.jpg') }}" alt="IFB Logo" style="height: 40px; width: auto; object-fit: contain;">
+                    </div>
+                
                 </td>
-                <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
+                <td style=" border: none; text-align: center;padding-left: 150px; vertical-align: middle;">
+                    <div style="font-size: 18px; font-weight: bold; letter-spacing: 0.5px;">TAX INVOICE</div>
                 </td>
-                <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-                                           </td>
-                <td style="border-top:0ch;border-bottom:0ch;width: 3%;">
-
+                <td style=" border: none; text-align: center; vertical-align: middle;">
+                    <div style="font-size: 14px; font-weight: bold; letter-spacing: 0.5px;">{{ $copyLabel }}</div>
+                   
                 </td>
-                <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-                  &nbsp;
-                </td>
-                <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
+            </tr>
+        </table>
 
-                </td>
-                <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
+        <!-- Details Box Section (Invoice Details & Addresses) -->
+        <table style="width: 100%; border-collapse: collapse; border-top: 1px solid #000; border-bottom: 1px solid #000; border-left: none; border-right: none;">
+    <tr>
+        <td style="width: 50%; padding: 4px; border-right: 1px solid #000; border-top: none; border-bottom: none; border-left: none; text-align: left; vertical-align: top;">
+            <div style="font-size: 13px; font-weight: bold; margin-top: 1px;">IFB Industries Ltd</div>
+            <div style="font-size: 10px; line-height: 1.3; margin-top: 2px;">
+                Off Whitefied Road 16/17, Visveswaraiah Indl. Estate, Bangalore 560048 Karnataka India<br>
+                State Name & Code: Karnataka 29<br>
+                Phone No: 08030589620 Fax: 08030589611<br>
+                GSTIN: 29AAACI6561R1ZT PAN: AAACI6561R CIN: L51109WB1974PLC029637<br>
+                Web: www.ifbindustries.com Email ID: contact@ifbbangalore.com<br>
+                Regd Office: Regd.Office : 14,Taratolla Road,Kolkata - 700088
+            </div>
 
-                </td>
-                <td style="border-top:0ch;border-bottom:0ch;width: 6%;">
-
-                </td>
-                <td style="border-top:0ch;border-bottom:0ch;width: 11.1%;">
-
-                </td>
-                   </tr> -->
-
-
-
-                </tbody>
+            <table class="no-border-table" style="width: 100%;">
+                <tr>
+                    <td class="font-bold" style="font-size: 10px; width: 25%;">Invoice To</td>
+                    <td style="font-size: 8.5px; width: 75%;">: <strong>{{ 100878 }}</strong></td>
+                </tr>
+                <tr>
+                    <td class="font-bold" style="font-size: 10px;"> HYUNDAI MOTOR INDIA LTD.</td>
+                    <td style="font-size: 8.5px; text-align: right; font-weight: bold;">Vendor Code &nbsp;&nbsp; : &nbsp;&nbsp; {{ $data[0]->vendorCode ?? '' }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="font-size: 9px; line-height: 1.3; padding-top: 3px;">
+                        SIPCOT INDL. EST, IRRUNGATTUKOTTAI SRIPERUMBUDUR(TK),CHENNAI Tamil Nadu India 602105
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="font-size: 8px; line-height: 1.3;">
+                        PAN No: {{ !empty($data[0]->customerBillingGSTINno) ? substr($data[0]->customerBillingGSTINno, 2, 10) : '' }} &nbsp; GSTIN/UIN : {{ $data[0]->customerBillingGSTINno ?? '' }}<br>
+                        State Name & Code: {{ $data[0]->customerStateName ?? '' }} (Code: {{ $data[0]->customerStateCode ?? '' }})<br>
+                        Place of Supply: {{ $data[0]->statePlaceofSupply ?? '' }}
+                    </td>
+                </tr>
             </table>
-            <!-- DivTable.com -->
+        </td>
 
-        </body>
-    @endfor
+        <td style="width: 50%; padding: 4px; border: none; text-align: left; vertical-align: top;">
+            
+            <table style="width: 100%; border: none; border-collapse: collapse;">
+                <tr>
+                    <td style="width: 65%; border: none; vertical-align: top; padding: 0px;">
+                        <table class="no-border-table" style="font-size: 7px; width: 100%;">
+                            <tr>
+                                <td class="font-bold" style="width: 35%;">Invoice Number</td>
+                                <td style="width: 65%;">: <strong>{{ $data[0]->invoiceno ?? '' }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Invoice Date</td>
+                                <td>: <strong>{{ !empty($data[0]->invoicedate) ? preg_replace('/\./', '/', $data[0]->invoicedate) : '' }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td >Invoice Type</td>
+                                <td>: Tax Invoice</td>
+                            </tr>
+                            <tr>
+                                <td >Transporter Name</td>
+                                <td>: {{ $data[0]->transporter_name ?? '' }}</td>
+                            </tr>
+                            <tr>
+                                <td >Transport Mode</td>
+                                <td>: Road</td>
+                            </tr>
+                            <tr>
+                                <td >LR Number</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td >Package Description</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td >Gross Weight & Net Wt</td>
+                                <td>: </td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold" style="padding-top: 4px;">Name of Consignee (Shipped to)</td>
+                                <td style="padding-top: 4px;">: <strong>{{ $data[0]->customerBillingcode ?? '100878' }}</strong></td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td style="width: 35%; border: none; vertical-align: top; text-align: right; padding: 0px;">
+                        @if(!empty($irn_barcode))
+                            <img src="{{ $irn_barcode }}" alt="IRN Barcode" style="width: 100px; height: 100px; display: inline-block; margin-top: 2px;">
+                        @endif
+                    </td>
+                </tr>
+            </table>
+
+            <table class="no-border-table" style="font-size: 9px; width: 100%; margin-top: 1px;">
+                <tr>
+                    <td class="font-bold" style="font-size: 9px;">HYUNDAI MOTOR INDIA LTD.</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 8px; line-height: 1.3;">
+                        #H1 SIPCOT INDL. EST, IRRUNGATTUKOTTAI SRIPERUMBUDUR(TK),CHENNAI Tamil Nadu India 602105
+                    
+                </tr>
+                <tr>
+                    <td style="font-size: 8px; line-height: 1.3;">
+                        State Name & Code: {{ $data[0]->customerStateName ?? '' }} Code: {{ $data[0]->customerStateCode ?? '' }} GSTIN/UIN: {{ $data[0]->customerBillingGSTINno ?? '' }} PAN No: {{ !empty($data[0]->customerBillingGSTINno) ? substr($data[0]->customerBillingGSTINno, 2, 10) : '' }}
+                    </td>
+                </tr>
+            </table>
+            
+        </td>
+    </tr>
+</table>
+
+        <!-- Details Products Table Section -->
+        <table style="width: 100%; border-collapse: collapse; border-left: none; border-right: none; border-top: none;">
+    <thead>
+        <tr style="font-size: 7px; text-align: center;">
+            <th rowspan="2" style="width: 3%; border-left: none; border-top: none; padding: 2px;">SL#</th>
+            <th rowspan="2" style="width: 6%; border-top: none; padding: 2px;">Item Code<br>(Mat. Code)</th>
+            <th rowspan="2" style="width: 9%; border-top: none; padding: 2px;">Customer<br>Part No.</th>
+            <th rowspan="2" style="width: 18%; border-top: none; padding: 2px;">Desc of Goods / Services</th>
+            <th rowspan="2" style="width: 8%; border-top: none; padding: 2px;">Cust. PO</th>
+            <th rowspan="2" style="width: 7%; border-top: none; padding: 2px;">HSN Code</th>
+            <th rowspan="2" style="width: 4%; border-top: none; padding: 2px;">Qty</th>
+            <th rowspan="2" style="width: 4%; border-top: none; padding: 2px;">UOM</th>
+            <th rowspan="2" style="width: 6%; border-top: none; padding: 2px;">Unit Price</th>
+            <th colspan="2" style="width: 8%; border-top: none; padding: 2px;">P & F</th>
+            <th rowspan="2" style="width: 6%; border-top: none; padding: 2px;">Total Amount</th>
+            <th rowspan="2" style="width: 5%; border-top: none; padding: 2px;">Discount</th>
+            <th rowspan="2" style="width: 6%; border-top: none; padding: 2px;">Taxable Value</th>
+            <th colspan="2" style="width: 8%; border-top: none; padding: 2px;">CGST</th>
+            <th colspan="2" style="width: 8%; border-top: none; padding: 2px;">SGST / UT GST</th>
+            <th colspan="2" style="width: 8%; border-top: none; border-right: none; padding: 2px;">IGST</th>
+        </tr>
+        <tr style="font-size: 7px; text-align: center;">
+            <th style="padding: 2px;">Rate</th>
+            <th style="padding: 2px;">Amount</th>
+            <th style="padding: 2px;">Rate</th>
+            <th style="padding: 2px;">Amount</th>
+            <th style="padding: 2px;">Rate</th>
+            <th style="padding: 2px;">Amount</th>
+            <th style="padding: 2px; border-right: none;">Rate</th>
+            <th style="padding: 2px; border-right: none;">Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($data as $index => $row)
+        <tr style="font-size: 7.5px;  height: 50px; border-top: none; border-bottom: none;">
+            <td class="text-center" style="border-left: none; padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $index + 1 }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->ItemNumber ?? '10' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->customerPartno ?? '' }}</td>
+            <td class="text-left" style="padding: 15px 3px; vertical-align: top; line-height: 1.2; border-bottom: 0 !important;">{{ $row->productname ?? '' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->ponumber ?? '' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->producthsncode ?? '' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->productqty ?? 0 }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->uom_id ?: 'EA' }}</td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ !empty($row->productsellingrate) ? sprintf("%.2f", $row->productsellingrate) : '0.00' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ !empty($row->netamount) ? sprintf("%.2f", $row->netamount) : '0.00' }}</td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">0.00</td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ !empty($row->taxableamount) ? sprintf("%.2f", $row->taxableamount) : '0.00' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->cgst_per ? $row->cgst_per.'%' : '' }}</td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ !empty($row->productcgstamount) ? sprintf("%.2f", $row->productcgstamount) : '' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->sgst_per ? $row->sgst_per.'%' : '' }}</td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ !empty($row->productsgstamount) ? sprintf("%.2f", $row->productsgstamount) : '' }}</td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ $row->igst_per ? $row->igst_per.'%' : '' }}</td>
+            <td class="text-right" style="border-right: none; padding: 15px 3px; vertical-align: top; border-bottom: 0 !important;">{{ !empty($row->productigstamount) ? sprintf("%.2f", $row->productigstamount) : '' }}</td>
+        </tr>
+        @endforeach
+
+  @for($i = count($data); $i < 3; $i++)
+        <tr style="font-size: 7.5px;  height: 50px;" >
+            <td class="text-center" style="border-left: none; padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-left" style="padding: 15px 3px; vertical-align: top; line-height: 1.2; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-center" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+            <td class="text-right" style="border-right: none; padding: 15px 3px; vertical-align: top; border-bottom: 0 !important; border-top: 0 !important;"></td>
+        </tr>
+        @endfor
+        <tr class="font-bold" style="background-color: #f9f9f9; font-size: 7.5px; height: 18px;">
+            <td colspan="6" class="text-right" style="border-left: none; padding: 4px 3px;">Total</td>
+            <td class="text-center" style="padding: 4px 3px;">{{ $data[0]->tot_qty ?? 0 }}</td>
+            <td style="padding: 4px 3px;"></td>
+            <td style="padding: 4px 3px;"></td>
+            <td style="padding: 4px 3px;"></td>
+            <td style="padding: 4px 3px;"></td>
+            <td class="text-right" style="padding: 4px 3px;">{{ !empty($data[0]->sales_total) ? sprintf("%.2f", $data[0]->sales_total) : '0.00' }}</td>
+            <td style="padding: 4px 3px;"></td>
+            <td class="text-right" style="padding: 4px 3px;">{{ !empty($data[0]->taxableamounts) ? sprintf("%.2f", $data[0]->taxableamounts) : '0.00' }}</td>
+            <td style="padding: 4px 3px;"></td>
+            <td class="text-right" style="padding: 4px 3px;">{{ !empty($data[0]->cgstamount) ? sprintf("%.2f", $data[0]->cgstamount) : '0.00' }}</td>
+            <td style="padding: 4px 3px;"></td>
+            <td class="text-right" style="padding: 4px 3px;">{{ !empty($data[0]->sgstamount) ? sprintf("%.2f", $data[0]->sgstamount) : '0.00' }}</td>
+            <td style="padding: 4px 3px;"></td>
+            <td class="text-right" style="border-right: none; padding: 4px 3px;">{{ !empty($data[0]->igstamount) ? sprintf("%.2f", $data[0]->igstamount) : '0.00' }}</td>
+        </tr>
+    </tbody>
+</table>
+
+        <!-- IRN Row -->
+        <div style="border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px; font-size: 8px; text-align: left;">
+            <strong>IRN No :</strong> {{ $data[0]->irn_reference_no ?? '' }}
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; border-bottom: 1px solid #000;">
+    <tr>
+        <td style="width: 30%; border: none; padding: 5px; text-align: center; vertical-align: top; border-right: 1px solid #000;">
+            <div style="font-weight: bold; font-size: 7.5px; margin-bottom: 2px;">{{ $data[0]->invoiceno ?? '' }}</div>
+            @if(!empty($customer_barcode))
+                <img src="{{ $customer_barcode }}" alt="Customer Barcode" style="width: 180px; height: 180  px; margin-top: 5px;">
+            @endif
+        </td>
+        
+       <td style="width: 40%; border: none; padding: 5px; text-align: left; vertical-align: top; border-right: 1px solid #000;">
+    
+    <div style="font-size: 9px; line-height: 1.4; padding-bottom: 5px; border-bottom: 1px solid #000; margin-bottom: 5px;">
+        <strong>IGST amount(in words) :</strong> {{ ($data[0]->igstamount ?? 0) > 0 ? ($data[0]->igstinwords ?? '') . ' only' : 'Zero Rupees Only' }}<br>
+        <strong>Total Amount(in words) :</strong> {{ $data[0]->grandtotalamountword ?? '' }}<br>
+        <strong>Document Currency In :</strong> INR
+    </div>
+    
+    <div style="font-size: 8px; line-height: 1.3; padding-top: 2px;">
+        <strong>Payment Terms: Within 61 days Due net</strong><br>
+        Insurance: Material dispatched under this invoice is covered under the Marine Open Policy No.104400211910000001, which is valid from midnight of 01.04.2019 to midnight 31.03.2020.<br>
+        <strong>Declaration:</strong> Certified that the particulars are true and correct and the amount indicated represents the price actually charged and that there is no flow of additional consideration directly or indirectly from the buyer.<br>
+        <strong>Terms & Conditions: (E&OE)</strong><br>
+        1. Interest @ 24% will be charged, if payment is not received within the due date.<br>
+        2. Rejection if any should be intimated within 7 days from the date of receipt.<br>
+        3. No agreement or contract is valid unless is in writing and is signed by a duty authorized office of the company.<br>
+        4. All disputes subject to Bangalore jurisdiction.<br>
+        Note: Unless otherwise stated, tax on this invoice is not payable under reverse charge.
+    </div>
+</td>
+        
+        <td style="width: 30%; border: none; padding: 0px; text-align: left; vertical-align: top;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 7.5px;">
+                <tr>
+                    <td style="border-bottom: 1px solid #000; border-right: 1px solid #000; padding: 3px 5px; font-weight: bold; width: 60%; height: 16px;">Total Taxable Value</td>
+                    <td style="border-bottom: 1px solid #000; padding: 3px 5px; text-align: right; width: 40%; font-weight: bold;">{{ !empty($data[0]->taxableamounts) ? sprintf("%.2f", $data[0]->taxableamounts) : '0.00' }}</td>
+                </tr>
+                <tr>
+                    <td style="border-bottom: 1px solid #000; border-right: 1px solid #000; padding: 3px 5px; font-weight: bold; height: 16px;">Total IGST Value</td>
+                    <td style="border-bottom: 1px solid #000; padding: 3px 5px; text-align: right; font-weight: bold;">{{ !empty($data[0]->igstamount) ? sprintf("%.2f", $data[0]->igstamount) : '0.00' }}</td>
+                </tr>
+                <tr>
+                    <td style="border-bottom: 1px solid #000; border-right: 1px solid #000; padding: 3px 5px; font-weight: bold; height: 16px;">Total UGST Value</td>
+                    <td style="border-bottom: 1px solid #000; padding: 3px 5px; text-align: right; font-weight: bold;">0.00</td>
+                </tr>
+                <tr>
+                    <td style="border-bottom: 1px solid #000; border-right: 1px solid #000; padding: 3px 5px; font-weight: bold; height: 16px;">TCS Amount</td>
+                    <td style="border-bottom: 1px solid #000; padding: 3px 5px; text-align: right; font-weight: bold;">{{ !empty($data[0]->tcs_amount) ? sprintf("%.2f", $data[0]->tcs_amount) : '0.00' }}</td>
+                </tr>
+                <tr style="font-weight: bold; font-size: 8px;">
+                    <td style="border-bottom: 1px solid #000; border-right: 1px solid #000; padding: 4px 5px; height: 18px;">Total Invoice Value</td>
+                    <td style="border-bottom: 1px solid #000; padding: 4px 5px; text-align: right;">{{ !empty($data[0]->grandtotalamount) ? sprintf("%.2f", $data[0]->grandtotalamount) : '0.00' }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="border: none; text-align: center; padding-top: 5px; padding-bottom: 2px;">
+                        <div style="font-size: 8px; font-weight: bold; margin-bottom: 30px;">For IFB Industries Ltd</div>
+                        <div style="font-size: 7.5px; margin-top: 50px;">Authorized Signatory</div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+        <!-- Bottom Section (Delivery Card / MRIR) -->
+        <div class="font-bold text-center" style="border-bottom: 1px solid #000; padding: 3px; font-size: 8.5px;">
+            Delivery Card / MRIR
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; font-size: 7.5px; border-bottom: 1px solid #000;">
+            <thead>
+                <tr style="text-align: center;">
+                    <th style="width: 14%; padding: 2px; border-top: none;">Vendor Code</th>
+                    <th style="width: 14%; padding: 2px; border-top: none;">Location</th>
+                    <th style="width: 14%; padding: 2px; border-top: none;">Shop Code</th>
+                    <th style="width: 14%; padding: 2px; border-top: none;">Gate Number</th>
+                    <th style="width: 14%; padding: 2px; border-top: none;">Schd.Date</th>
+                    <th style="width: 14%; padding: 2px; border-top: none;">Recd.Date</th>
+                    <th style="width: 16%; padding: 2px; border-top: none; border-right: none;">MRIR Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center">
+                    <td style="border-left: none; border-bottom: none; padding: 3px;">{{ $data[0]->vendorCode ?? '' }}</td>
+                    <td style="border-bottom: none; padding: 3px;">{{ $data[0]->plant_code ?? '' }}</td>
+                    <td style="border-bottom: none; padding: 3px;">{{ $data[0]->shopcode ?? '' }}</td>
+                    <td style="border-bottom: none; padding: 3px;">{{ $data[0]->gateno ?? '' }}</td>
+                    <td style="border-bottom: none; padding: 3px;"></td>
+                    <td style="border-bottom: none; padding: 3px;"></td>
+                    <td style="border-right: none; border-bottom: none; padding: 3px;"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table style="width: 100%; border-collapse: collapse; font-size: 7.5px;">
+            <thead>
+                <tr style="text-align: center;">
+                    <th style="width: 12%; padding: 2px; border-top: none;">Part Number</th>
+                    <th style="width: 12%; padding: 2px; border-top: none;">Container Type</th>
+                    <th style="width: 12%; padding: 2px; border-top: none;">No. Of. Container</th>
+                    <th style="width: 12%; padding: 2px; border-top: none;">Stuff Qty</th>
+                    <th style="width: 10%; padding: 2px; border-top: none;">Rec. Qty</th>
+                    <th style="width: 10%; padding: 2px; border-top: none;">Rej. Qty</th>
+                    <th style="width: 10%; padding: 2px; border-top: none;">Acc. Qty</th>
+                    <th style="width: 10%; padding: 2px; border-top: none;">Recd. By</th>
+                    <th style="width: 12%; padding: 2px; border-top: none; border-right: none;">HMI Entry Seal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center">
+                    <td style="border-left: none; border-bottom: none; padding: 3px;">{{ $data[0]->customerPartno ?? '' }}</td>
+                    <td style="border-bottom: none; padding: 3px;">{{ $data[0]->ContainerType ?? '' }}</td>
+                    <td style="border-bottom: none; padding: 3px;">{{ $data[0]->NoofContainers ?? '' }}</td>
+                    <td style="border-bottom: none; padding: 3px;">{{ $data[0]->StuffQty ?? '' }}</td>
+                    <td style="border-bottom: none; padding: 3px;"></td>
+                    <td style="border-bottom: none; padding: 3px;"></td>
+                    <td style="border-bottom: none; padding: 3px;"></td>
+                    <td style="border-bottom: none; padding: 3px;"></td>
+                    <td style="border-right: none; border-bottom: none; padding: 3px;"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    {{-- Page break between copies --}}
+    @if($copyIndex < count($a) - 1)
+        <div style="page-break-after: always; clear: both;"></div>
+    @endif
 @endfor
 
+</body>
 </html>

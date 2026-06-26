@@ -226,15 +226,15 @@ public function printbarcode(Request $request)
         // dd($all);
         $a = ['original','duplicate','triplicate','extra'];
         $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount','customer_barcode','irn_barcode']))->setPaper('a4', 'landscape');
-        return $pdf->stream($invoices[0].' - HMIL MRIR.pdf');
+        return $pdf->stream($invoices[0].'.pdf');
           // return view('print_invoice.singlepdf',compact('a','data','datacount','customer_barcode','irn_barcode'));
        }
         else
         {
             // dd($irn_barcode);
-            // $a = ['original','duplicate','triplicate','extra'];
+             $a = ['original','duplicate','triplicate','extra'];
             $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount','customer_barcode','irn_barcode']))->setPaper('a4', 'landscape');
-            return $pdf->stream($invoices[0].' - HMIL MRIR.pdf');
+            return $pdf->stream($invoices[0].'.pdf');
         }
       }
     }

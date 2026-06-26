@@ -116,15 +116,17 @@ public function DigitalSignPDF(Request $request)
              preg_replace('/\s+/', '', $data[0]->irn_reference_no)."\t";
         $datastr = trim($datastr);
         // dd($datastr);
-        $customer_barcode[] = 'data:image/svg+xml;base64,' . base64_encode(DNS2D::getBarcodeSVG($datastr, "QRCODE", 2, 2));
-        $irn_barcode[] = 'data:image/svg+xml;base64,' . base64_encode(DNS2D::getBarcodeSVG($data[0]->irn_reference_no."\r\n", "QRCODE", 2, 2));
+        //$customer_barcode[] = 'data:image/svg+xml;base64,' . base64_encode(DNS2D::getBarcodeSVG($datastr, "QRCODE", 2, 2));
+        //$irn_barcode[] = 'data:image/svg+xml;base64,' . base64_encode(DNS2D::getBarcodeSVG($data[0]->irn_reference_no."\r\n", "QRCODE", 2, 2));
+         $customer_barcode = 'data:image/svg+xml;base64,' . base64_encode(DNS2D::getBarcodeSVG($datastr, "QRCODE", 2, 2));
+        $irn_barcode = 'data:image/svg+xml;base64,' . base64_encode(DNS2D::getBarcodeSVG($data[0]->irn_reference_no."\r\n", "QRCODE", 2, 2));
         $datacount=count($data);
-        $Barcodecount=count($customer_barcode);
+        // $Barcodecount=count($customer_barcode);
         $a = ['original'];
 
         salesheader::where('id',$id)->update(['signstatus'=>"Ready"]); 
-
-        $pdf = PDF::loadView('digitalsign.printpdf',compact(['data','a','datacount','customer_barcode','irn_barcode','Barcodecount']))->setPaper('a4', 'portrait');
+       // $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount','customer_barcode','irn_barcode']))->setPaper('a4', 'landscape');
+        $pdf = PDF::loadView('digitalsign.printpdf',compact(['data','a','datacount','customer_barcode','irn_barcode']))->setPaper('a4', 'landscape');
         // return $pdf->stream($invoices[$i].' - HMIL MRIR.pdf');
         Storage::put("public/UnSigned/".$data[0]->invoiceno.".pdf", $pdf->output());
     }

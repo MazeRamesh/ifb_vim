@@ -69,7 +69,7 @@ tr:nth-child(even) {
                     <div class="container-fluid pt-3">
                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding  print-shape">
                                 <div class="card-header toll-free">
-                                      <span class="toll-free"> Print MRIR </span>
+                                      <span class="toll-free"> Print Invoice </span>
                                 </div>
                             </div>
                             <!-- <div id="triangle-bottomleft">
