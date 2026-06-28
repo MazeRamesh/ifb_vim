@@ -67,7 +67,7 @@
 <script>
 $('#ForgetPwd').on('click', function(e) {
     e.preventDefault();
-    alert("Please Contact Us \n sale@mazeworkssolutions.com (or) 8778966951");
+    alert("Please Contact Us \n sale@mazeworkssolutions.com");
 });
 </script>
 </body>

@@ -103,20 +103,20 @@
         <table style="width: 100%; border-collapse: collapse; border-top: 1px solid #000; border-bottom: 1px solid #000; border-left: none; border-right: none;">
     <tr>
         <td style="width: 50%; padding: 4px; border-right: 1px solid #000; border-top: none; border-bottom: none; border-left: none; text-align: left; vertical-align: top;">
-            <div style="font-size: 13px; font-weight: bold; margin-top: 1px;">IFB Industries Ltd</div>
+            <div style="font-size: 13px; font-weight: bold; margin-top: 1px;">IFB Automotive Pvt. Ltd</div>
             <div style="font-size: 10px; line-height: 1.3; margin-top: 2px;">
-                Off Whitefied Road 16/17, Visveswaraiah Indl. Estate, Bangalore 560048 Karnataka India<br>
+                Kasaba Hobli, Soukya Road, Koralur Village, Bangalore 560067 Karnataka India<br>
                 State Name & Code: Karnataka 29<br>
-                Phone No: 08030589620 Fax: 08030589611<br>
-                GSTIN: 29AAACI6561R1ZT PAN: AAACI6561R CIN: L51109WB1974PLC029637<br>
-                Web: www.ifbindustries.com Email ID: contact@ifbbangalore.com<br>
-                Regd Office: Regd.Office : 14,Taratolla Road,Kolkata - 700088
+                Phone No: 91 80 39884450 Fax: 91 80 39842778<br>
+                GSTIN: 29AABCI2766H1ZE PAN: AABCI2766H CIN: U29130WB1989PTC046693<br>
+                Web: www.ifbautomotive.com Email ID: info@ifbautomotive.com<br>
+                Regd Office: Plot No.IND -5, Sector -1, East Calcutta Township, Kolkata - 700 107
             </div>
 
             <table class="no-border-table" style="width: 100%;">
                 <tr>
                     <td class="font-bold" style="font-size: 10px; width: 25%;">Invoice To</td>
-                    <td style="font-size: 8.5px; width: 75%;">: <strong>{{ 100878 }}</strong></td>
+                    <td style="font-size: 8.5px; width: 75%;">: <strong>{{ 600051 }}</strong></td>
                 </tr>
                 <tr>
                     <td class="font-bold" style="font-size: 10px;"> HYUNDAI MOTOR INDIA LTD.</td>

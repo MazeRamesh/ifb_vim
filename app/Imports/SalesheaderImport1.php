@@ -117,6 +117,44 @@ class SalesheaderImport implements ToCollection,SkipsOnFailure,WithHeadingRow
         foreach ($arr_rows as $key=>$row) {
             $row=array_filter($row);
             $validator = Validator::make($row, $this->rules);
+
+            // Find "Internal Doc No" key in the row
+            $internalDocKey = null;
+            foreach (array_keys($row) as $rKey) {
+                if ($rKey === 'internal_doc_no' || 
+                    $rKey === 'internal_document_no' || 
+                    strpos($rKey, 'internal_doc') === 0 || 
+                    strpos($rKey, 'internal_document') === 0) {
+                    $internalDocKey = $rKey;
+                    break;
+                }
+            }
+
+            // Find Voucher/Invoice No key
+            $voucherInvoiceKey = $mapped_salesheader['invoiceno'] ?? null;
+            if (!$voucherInvoiceKey || !array_key_exists($voucherInvoiceKey, $row)) {
+                foreach (array_keys($row) as $rKey) {
+                    if ($rKey === 'voucherinvoice_no' || 
+                        $rKey === 'voucherinvoice_number' || 
+                        $rKey === 'gst_invoice_no' || 
+                        strpos($rKey, 'voucherinvoice') === 0 || 
+                        strpos($rKey, 'invoice') !== false) {
+                        $voucherInvoiceKey = $rKey;
+                        break;
+                    }
+                }
+            }
+
+            if ($voucherInvoiceKey && $internalDocKey) {
+                $voucherInvoiceVal = trim((string)($row[$voucherInvoiceKey] ?? ''));
+                $internalDocVal = trim((string)($row[$internalDocKey] ?? ''));
+                if ($voucherInvoiceVal !== $internalDocVal) {
+                    $validator->after(function ($validator) {
+                        $validator->errors()->add('internal_doc_no', 'Internal Doc No and Voucher/Invoice No must be same.');
+                    });
+                }
+            }
+
             if ($validator->fails()) {
                 $error_messages=[];
                 foreach ($validator->errors()->messages() as $messages) {

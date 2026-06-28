@@ -255,7 +255,7 @@ public function printbarcode(Request $request)
         preg_replace('/\s+/', '', $data[0]->tot_qty)."\t".
         preg_replace('/\s+/', '', $data[0]->grandtotalamount)."\t".
         preg_replace('/\s+/', '', $data[0]->producthsncode).'0.00'."\t".
-        preg_replace('/\s+/', '', $data[0]->sgstamount)."\t".'0.00'."\t".preg_replace('/\s+/', '', $data[0]->tcs_amount)."\t".
+        preg_replace('/\s+/', '', $data[0]->sgstamount)."\t".preg_replace('/\s+/', '', $data[0]->igstamount)."\t".preg_replace('/\s+/', '', $data[0]->tcs_amount)."\t".
         preg_replace('/\s+/', '', $data[0]->productsellingrate)."\t".
         preg_replace('/\s+/', '', $data[0]->taxableamounts)."\t".
         preg_replace('/\s+/', '', $data[0]->cgstamount)."\t".'0.00'."\t".'0.00'."\t".
@@ -303,7 +303,7 @@ public function printbarcode(Request $request)
              preg_replace('/\s+/', '', $data[0]->tot_qty)."\t".
              preg_replace('/\s+/', '', $data[0]->grandtotalamount)."\t".
              preg_replace('/\s+/', '', $data[0]->producthsncode).'0.00'."\t".
-             preg_replace('/\s+/', '', $data[0]->sgstamount)."\t".'0.00'."\t".preg_replace('/\s+/', '', $data[0]->tcs_amount)."\t".
+             preg_replace('/\s+/', '', $data[0]->sgstamount)."\t".preg_replace('/\s+/', '', $data[0]->igstamount)."\t".preg_replace('/\s+/', '', $data[0]->tcs_amount)."\t".
              preg_replace('/\s+/', '', $data[0]->productsellingrate)."\t".
              preg_replace('/\s+/', '', $data[0]->taxableamounts)."\t".
              preg_replace('/\s+/', '', $data[0]->cgstamount)."\t".'0.00'."\t".'0.00'."\t".

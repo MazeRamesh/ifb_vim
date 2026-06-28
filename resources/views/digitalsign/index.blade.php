@@ -2,74 +2,74 @@
 @section('content')
 @section('digitalsign', 'menu-open')
 @push('css')
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style type="text/css">
-        section {
-            padding: 60px 0;
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+    section {
+        padding: 60px 0;
 
+    }
+
+    @media only screen and (min-device-height : 320px) and (max-device-height : 600px) {
+        .graph-card {
+            height: 600px;
         }
+    }
 
-        @media only screen and (min-device-height : 320px) and (max-device-height : 600px) {
-            .graph-card {
-                height: 600px;
-            }
-        }
+    section .section-title {
+        text-align: center;
+        color: #007b5e;
+        margin-bottom: 50px;
+        text-transform: uppercase;
+    }
 
-        section .section-title {
-            text-align: center;
-            color: #007b5e;
-            margin-bottom: 50px;
-            text-transform: uppercase;
-        }
+    #tabs {
+        background: #007b5e;
+        color: #eee;
+    }
 
-        #tabs {
-            background: #007b5e;
-            color: #eee;
-        }
+    #tabs h6.section-title {
+        color: #eee;
+    }
 
-        #tabs h6.section-title {
-            color: #eee;
-        }
+    tr:nth-child(even) {
+        background-color: #E0F3FF;
+    }
 
-        tr:nth-child(even) {
-            background-color: #E0F3FF;
-        }
+    #tabs .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+        color: white;
+        background-color: #3f45a3;
+        border: 2px solid #3f45a3;
+        /* border-color: transparent transparent #C0C0C0; */
+        letter-spacing: 1px;
+        /* border-bottom: 4px solid !important; */
+        font-size: 16px;
+    }
 
-        #tabs .nav-tabs .nav-item.show .nav-link,
-        .nav-tabs .nav-link.active {
-            color: white;
-            background-color: #3f45a3;
-            border: 2px solid #3f45a3;
-            /* border-color: transparent transparent #C0C0C0; */
-            letter-spacing: 1px;
-            /* border-bottom: 4px solid !important; */
-            font-size: 16px;
-        }
+    #tabs .nav-tabs .nav-link {
+        border: 1px solid transparent;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+        color: #eee;
+        font-size: 20px;
+    }
 
-        #tabs .nav-tabs .nav-link {
-            border: 1px solid transparent;
-            border-top-left-radius: .25rem;
-            border-top-right-radius: .25rem;
-            color: #eee;
-            font-size: 20px;
-        }
+    .demo2 {
+        background-color: white;
+        color: #3a32e1;
+        font-size: 15px;
+        border: 2px solid #3a32e1;
 
-        .demo2 {
-            background-color: white;
-            color: #3a32e1;
-            font-size: 15px;
-            border: 2px solid #3a32e1;
+    }
 
-        }
-
-        #tabs .nav-tabs .nav-link {
-            border: 1px solid blue;
-            border-top-left-radius: .25rem;
-            border-top-right-radius: .25rem;
-            color: #eee;
-            font-size: 20px;
-        }
-    </style>
+    #tabs .nav-tabs .nav-link {
+        border: 1px solid blue;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+        color: #eee;
+        font-size: 20px;
+    }
+</style>
 @endpush
 <div class="content-wrapper">
     <div id="layoutSidenav_content">
@@ -240,7 +240,7 @@
                                     <div class="form-group clearfix{{ $errors->has('fromdate') ? 'has-error' : '' }}">
                                         <label class="lab">From Date<b class="imp">*</b></label>
                                         <input id="fromdate" style="border: 0px;border-bottom: 2px solid blue;"
-                                            class="from" name="fromdate" placeholder="From date"/
+                                            class="from" name="fromdate" placeholder="From date" /
                                             autocomplete="off" ng-model="fromdate">
                                     </div>
                                 </div>
@@ -395,7 +395,8 @@
         processing: true,
         serverSide: true,
         ajax: {
-            "url": '{!! route('get.digitalsignor.data') !!}',
+            "url": '{!! route('
+            get.digitalsignor.data ') !!}',
             'data': function(d) {
                 d.fromdate = $("#fromdate").val();
                 d.todate = $("#todate").val();
@@ -484,7 +485,8 @@
     signed_table = $('#signed_table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{!! route('get.digitalsigned.data') !!}',
+        ajax: '{!! route('
+        get.digitalsigned.data ') !!}',
         columnDefs: [{
             orderable: false,
             className: 'select-checkbox',
