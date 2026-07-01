@@ -164,6 +164,9 @@ public function digitalsigned(Request $request)
                         <i class="fas fa-file-pdf"></i>
                     </a>
 
+                    <button type="button" class="btn btn-sm btn-outline-danger btn-delete-row" data-id="' . $row->id . '" title="Delete Invoice" style="margin-left: 5px;">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
 
                 </div>';
         })->editColumn('ewaybillno', function ($row) {
@@ -332,4 +335,32 @@ public function printbarcode(Request $request)
     }
 }
 
+    public function deleteSigned(Request $request)
+    {
+        $ids = $request->get('ids');
+        if (empty($ids)) {
+            return response()->json(['success' => false, 'message' => 'No records selected.']);
+        }
+
+        try {
+            $salesheaders = salesheader::whereIn('id', $ids)->get();
+            foreach ($salesheaders as $salesheader) {
+                $invoiceno = $salesheader->invoiceno;
+
+                // Check file path: C:\xampp8_2_12\htdocs\ifb_vim\storage\app\public\Signed\<invoiceno>.pdf
+                $filePath = "C:\\xampp8_2_12\\htdocs\\ifb_vim\\storage\\app\\public\\Signed\\" . $invoiceno . ".pdf";
+                if (file_exists($filePath)) {
+                    @unlink($filePath);
+                }
+
+                // Delete DB records
+                $salesheader->delete();
+                DB::table('salesdetails')->where('invoiceno_id', $invoiceno)->delete();
+            }
+
+            return response()->json(['success' => true, 'message' => 'Selected invoices deleted successfully from database and local storage.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+        }
+    }
 }

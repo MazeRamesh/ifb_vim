@@ -232,7 +232,7 @@ public function printbarcode(Request $request)
         else
         {
             // dd($irn_barcode);
-             $a = ['original','duplicate','triplicate','extra'];
+            $a = ['original','duplicate','triplicate','extra'];
             $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount','customer_barcode','irn_barcode']))->setPaper('a4', 'landscape');
             return $pdf->stream($invoices[0].'.pdf');
         }

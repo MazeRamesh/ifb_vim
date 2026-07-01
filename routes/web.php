@@ -905,6 +905,7 @@ function ()
      Route::get('get-digitalsigned-dt-data', ['as'=>'get.digitalsigned.data','uses'=>'DigitalsignController@digitalsigned']);
 
      Route::get('/signedpdf/{print}','DigitalsignController@signedpdf')->name('digital.print.signedpdf')->where('id', '[0-9]+'); 
+     Route::post('delete-signed', 'DigitalsignController@deleteSigned')->name('digitalsign.deleteSigned');
 });
 
 Route::group(

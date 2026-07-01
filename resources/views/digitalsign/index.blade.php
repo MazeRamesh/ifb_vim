@@ -2,74 +2,74 @@
 @section('content')
 @section('digitalsign', 'menu-open')
 @push('css')
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style type="text/css">
-    section {
-        padding: 60px 0;
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        section {
+            padding: 60px 0;
 
-    }
-
-    @media only screen and (min-device-height : 320px) and (max-device-height : 600px) {
-        .graph-card {
-            height: 600px;
         }
-    }
 
-    section .section-title {
-        text-align: center;
-        color: #007b5e;
-        margin-bottom: 50px;
-        text-transform: uppercase;
-    }
+        @media only screen and (min-device-height : 320px) and (max-device-height : 600px) {
+            .graph-card {
+                height: 600px;
+            }
+        }
 
-    #tabs {
-        background: #007b5e;
-        color: #eee;
-    }
+        section .section-title {
+            text-align: center;
+            color: #007b5e;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
 
-    #tabs h6.section-title {
-        color: #eee;
-    }
+        #tabs {
+            background: #007b5e;
+            color: #eee;
+        }
 
-    tr:nth-child(even) {
-        background-color: #E0F3FF;
-    }
+        #tabs h6.section-title {
+            color: #eee;
+        }
 
-    #tabs .nav-tabs .nav-item.show .nav-link,
-    .nav-tabs .nav-link.active {
-        color: white;
-        background-color: #3f45a3;
-        border: 2px solid #3f45a3;
-        /* border-color: transparent transparent #C0C0C0; */
-        letter-spacing: 1px;
-        /* border-bottom: 4px solid !important; */
-        font-size: 16px;
-    }
+        tr:nth-child(even) {
+            background-color: #E0F3FF;
+        }
 
-    #tabs .nav-tabs .nav-link {
-        border: 1px solid transparent;
-        border-top-left-radius: .25rem;
-        border-top-right-radius: .25rem;
-        color: #eee;
-        font-size: 20px;
-    }
+        #tabs .nav-tabs .nav-item.show .nav-link,
+        .nav-tabs .nav-link.active {
+            color: white;
+            background-color: #3f45a3;
+            border: 2px solid #3f45a3;
+            /* border-color: transparent transparent #C0C0C0; */
+            letter-spacing: 1px;
+            /* border-bottom: 4px solid !important; */
+            font-size: 16px;
+        }
 
-    .demo2 {
-        background-color: white;
-        color: #3a32e1;
-        font-size: 15px;
-        border: 2px solid #3a32e1;
+        #tabs .nav-tabs .nav-link {
+            border: 1px solid transparent;
+            border-top-left-radius: .25rem;
+            border-top-right-radius: .25rem;
+            color: #eee;
+            font-size: 20px;
+        }
 
-    }
+        .demo2 {
+            background-color: white;
+            color: #3a32e1;
+            font-size: 15px;
+            border: 2px solid #3a32e1;
 
-    #tabs .nav-tabs .nav-link {
-        border: 1px solid blue;
-        border-top-left-radius: .25rem;
-        border-top-right-radius: .25rem;
-        color: #eee;
-        font-size: 20px;
-    }
-</style>
+        }
+
+        #tabs .nav-tabs .nav-link {
+            border: 1px solid blue;
+            border-top-left-radius: .25rem;
+            border-top-right-radius: .25rem;
+            color: #eee;
+            font-size: 20px;
+        }
+    </style>
 @endpush
 <div class="content-wrapper">
     <div id="layoutSidenav_content">
@@ -181,6 +181,14 @@
                         <!-- Signed Tab -->
 
                         <div class="tab-pane fade" id="nav-Signed" role="tabpanel" aria-labelledby="nav-Signed-tab">
+                            <div class="col-md-12 border p-3 mb-3" id="signed_actions" style="display: none; background-color: #fff5f5; border-color: #f5c6cb; border-radius: 4px;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span id="signed_selected_count" style="font-weight: bold; color: #721c24; font-size: 15px;"></span>
+                                    <button type="button" class="btn btn-danger btn-sm pl-4 pr-4" id="btn_delete_signed" style="font-weight: bold; background-color: #dc3545; border-color: #dc3545;">
+                                        <i class="fas fa-trash-alt mr-1"></i> Delete Selected
+                                    </button>
+                                </div>
+                            </div>
                             <div class="table-responsive mt-4">
                                 <table id="signed_table" class="table table-bordered table-striped" width="100%"
                                     cellspacing="0">
@@ -240,7 +248,7 @@
                                     <div class="form-group clearfix{{ $errors->has('fromdate') ? 'has-error' : '' }}">
                                         <label class="lab">From Date<b class="imp">*</b></label>
                                         <input id="fromdate" style="border: 0px;border-bottom: 2px solid blue;"
-                                            class="from" name="fromdate" placeholder="From date" /
+                                            class="from" name="fromdate" placeholder="From date"/
                                             autocomplete="off" ng-model="fromdate">
                                     </div>
                                 </div>
@@ -395,8 +403,7 @@
         processing: true,
         serverSide: true,
         ajax: {
-            "url": '{!! route('
-            get.digitalsignor.data ') !!}',
+            "url": '{!! route('get.digitalsignor.data') !!}',
             'data': function(d) {
                 d.fromdate = $("#fromdate").val();
                 d.todate = $("#todate").val();
@@ -485,17 +492,12 @@
     signed_table = $('#signed_table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{!! route('
-        get.digitalsigned.data ') !!}',
+        ajax: '{!! route('get.digitalsigned.data') !!}',
         columnDefs: [{
             orderable: false,
             className: 'select-checkbox',
             targets: 0
         }],
-        select: {
-            style: 'multi',
-            selector: 'td:first-child'
-        },
         order: [
             [1, 'asc']
         ],
@@ -539,6 +541,142 @@
                 searchable: false
             }
         ]
+    });
+
+    $('#signed_table').on("click", "th:first-child", function() {
+        var header = $(this);
+        var rows = $('#signed_table tbody tr');
+        if (header.hasClass("selected")) {
+            rows.removeClass("selected");
+            header.removeClass("selected");
+            $("#signed_actions").hide();
+        } else {
+            rows.addClass("selected");
+            header.addClass("selected");
+            var selectedCount = rows.length;
+            $("#signed_selected_count").text(selectedCount + " invoice(s) selected");
+            $("#signed_actions").show();
+        }
+    });
+
+    $('#signed_table').on('click', 'td:first-child', function() {
+        var tr = $(this).closest('tr');
+        tr.toggleClass('selected');
+        
+        var selectedCount = $('#signed_table tbody tr.selected').length;
+        var totalCount = signed_table.rows().count();
+        var header = $('#signed_table thead th:first-child');
+        
+        if (selectedCount === 0) {
+            header.removeClass("selected");
+            $("#signed_actions").hide();
+        } else {
+            $("#signed_selected_count").text(selectedCount + " invoice(s) selected");
+            $("#signed_actions").show();
+            if (selectedCount === totalCount) {
+                header.addClass("selected");
+            } else {
+                header.removeClass("selected");
+            }
+        }
+    });
+
+    $('#signed_table').on('draw.dt', function() {
+        $('#signed_table thead th:first-child').removeClass("selected");
+        $("#signed_actions").hide();
+    });
+
+    $('#btn_delete_signed').click(function() {
+        var ids = [];
+        $('#signed_table tbody tr.selected').each(function() {
+            var rowData = signed_table.row($(this)).data();
+            if (rowData && rowData.id) {
+                ids.push(rowData.id);
+            }
+        });
+
+        if (ids.length === 0) {
+            swal("Error", "Please select at least one invoice to delete.", "error");
+            return;
+        }
+
+        swal({
+            title: "Are you sure?",
+            text: "This will delete " + ids.length + " selected invoice(s) permanently from the database and local storage.",
+            icon: "warning",
+            buttons: ["Cancel", "Yes, delete!"],
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: '{{ route("digitalsign.deleteSigned") }}',
+                    type: 'POST',
+                    data: {
+                        ids: ids
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            swal("Success", response.message, "success");
+                            signed_table.draw(false);
+                        } else {
+                            swal("Error", response.message, "error");
+                        }
+                    },
+                    error: function(xhr) {
+                        swal("Error", "An error occurred while deleting the invoices.", "error");
+                    }
+                });
+            }
+        });
+    });
+
+    $('#signed_table').on('click', '.btn-delete-row', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var id = $(this).data('id');
+        
+        swal({
+            title: "Are you sure?",
+            text: "This will permanently delete this invoice from the database and local storage.",
+            icon: "warning",
+            buttons: ["Cancel", "Yes, delete!"],
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: '{{ route("digitalsign.deleteSigned") }}',
+                    type: 'POST',
+                    data: {
+                        ids: [id]
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            swal("Success", response.message, "success");
+                            signed_table.draw(false);
+                        } else {
+                            swal("Error", response.message, "error");
+                        }
+                    },
+                    error: function(xhr) {
+                        swal("Error", "An error occurred while deleting the invoice.", "error");
+                    }
+                });
+            }
+        });
     });
 
     $('#signbutton').click(function() {

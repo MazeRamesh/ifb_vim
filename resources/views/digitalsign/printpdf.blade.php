@@ -177,7 +177,7 @@
                             </tr>
                             <tr>
                                 <td class="font-bold" style="padding-top: 4px;">Name of Consignee (Shipped to)</td>
-                                <td style="padding-top: 4px;">: <strong>{{ $data[0]->customerBillingcode ?? '100878' }}</strong></td>
+                                <td style="padding-top: 4px;">: <strong>{{ $data[0]->customerBillingcode ?? '600051' }}</strong></td>
                             </tr>
                         </table>
                     </td>
@@ -335,8 +335,8 @@
     </div>
     
     <div style="font-size: 8px; line-height: 1.3; padding-top: 2px;">
-        <strong>Payment Terms: Within 61 days Due net</strong><br>
-        Insurance: Material dispatched under this invoice is covered under the Marine Open Policy No.104400211910000001, which is valid from midnight of 01.04.2019 to midnight 31.03.2020.<br>
+        <strong>Payment Terms: Within 37 days Due net</strong><br>
+        Insurance: Material dispatched under this invoice is covered under the Marine Open Policy No.0830012873 12, which is valid from midnight of 01.04.2026 to midnight 31.03.2027.<br>
         <strong>Declaration:</strong> Certified that the particulars are true and correct and the amount indicated represents the price actually charged and that there is no flow of additional consideration directly or indirectly from the buyer.<br>
         <strong>Terms & Conditions: (E&OE)</strong><br>
         1. Interest @ 24% will be charged, if payment is not received within the due date.<br>
@@ -371,7 +371,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="border: none; text-align: center; padding-top: 5px; padding-bottom: 2px;">
-                        <div style="font-size: 8px; font-weight: bold; margin-bottom: 30px;">For IFB Industries Ltd</div>
+                        <div style="font-size: 8px; font-weight: bold; margin-bottom: 30px;">For IFB Automotive Pvt. Ltd</div>
                         <div style="font-size: 7.5px; margin-top: 50px;">Authorized Signatory</div>
                     </td>
                 </tr>
