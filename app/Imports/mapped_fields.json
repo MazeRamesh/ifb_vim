@@ -89,6 +89,7 @@
         "total_cess": "",
         "tcs_amount": "TCS Amount",
         "irn_reference_no": "IRN Number|required",
+        "payment_terms": "Payment Terms|required",
         "vehicle_no": "Transporter No",
         "ewaybillno": "raw|",
         "tot_qty": "Item Quantity"

@@ -118,7 +118,8 @@ class salesheader extends Model
         'data',
         'total_cess',
         'irn_reference_no',
-        'tcs_amount','billno'
+        'tcs_amount','billno',
+        'payment_terms'
               ];
 
     /**

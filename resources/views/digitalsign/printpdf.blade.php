@@ -335,7 +335,7 @@
     </div>
     
     <div style="font-size: 8px; line-height: 1.3; padding-top: 2px;">
-        <strong>Payment Terms: Within 37 days Due net</strong><br>
+        <strong>Payment Terms: Within {{ $data[0]->payment_terms ?? '' }} days Due net</strong><br>
         Insurance: Material dispatched under this invoice is covered under the Marine Open Policy No.0830012873 12, which is valid from midnight of 01.04.2026 to midnight 31.03.2027.<br>
         <strong>Declaration:</strong> Certified that the particulars are true and correct and the amount indicated represents the price actually charged and that there is no flow of additional consideration directly or indirectly from the buyer.<br>
         <strong>Terms & Conditions: (E&OE)</strong><br>
