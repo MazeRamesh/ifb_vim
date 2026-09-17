@@ -175,7 +175,7 @@ class printController extends Controller
         // dd($datastr);
         $datacount=count($data);
         $a = ['original','duplicate'];
-             $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount']))->setPaper('a4', 'landscape');
+             $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount']))->setPaper('a4', 'portrait');
       return $pdf->stream($invoices[0].' - HMIL MRIR.pdf');
       }
       else
@@ -225,13 +225,13 @@ class printController extends Controller
        {
         // dd($all);
         $a = ['original','duplicate','triplicate','extra'];
-        $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount']))->setPaper('a4', 'landscape');
+        $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount']))->setPaper('a4', 'portrait');
         return $pdf->stream($invoices[0].' - HMIL MRIR.pdf');
           // return view('print_invoice.singlepdf',compact('a','data','datacount'));
        }
         else
         {
-            $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount']))->setPaper('a4', 'landscape');
+            $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount']))->setPaper('a4', 'portrait');
             return $pdf->stream($invoices[0].' - HMIL MRIR.pdf');
         }
       }

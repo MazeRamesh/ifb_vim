@@ -119,126 +119,80 @@ class printController extends Controller
 
 public function printbarcode(Request $request)
 {
-        //dd($request->all());
         $user=auth()->user();
-        // File::delete(storage_path().'/All_Invoices.zip');
         $invoicenumber   = $request->get('invoicenumber1') ?: $request->get('invoicenumber');
         $invoices=explode(",",$invoicenumber);
         $count=count($invoices);
         if($count==1)
         {
-            // dd("one");
-          if($request->get('all')==null && $request->get('original')==null && $request->get('duplicate')==null && $request->get('triplicate')==null && $request->get('extra')==null)
-          {
+            $singleCopyParam = $request->get('single_copy');
+            if ($singleCopyParam != null) {
+                $a = [$singleCopyParam];
+            } else {
+                $all = $request->get('all');
+                $a = array();
+                if($all == "All")
+                {
+                    $a = ['original','duplicate','triplicate','extra'];
+                }
+                else
+                {
+                    if($request->get('original') != null) $a[] = 'original';
+                    if($request->get('duplicate') != null) $a[] = 'duplicate';
+                    if($request->get('triplicate') != null) $a[] = 'triplicate';
+                    if($request->get('extra') != null) $a[] = 'extra';
+                }
 
-        $all             = $request->get('all');
-        $a=array();
-        $request->get('original')!=null?$a[]='original':0;
-        $request->get('duplicate')!=null?$a[]='duplicate':0;
-        $request->get('triplicate')!=null?$a[]='triplicate':0;
-        $request->get('extra')!=null?$a[]='extra':0;
-        $selectcopy="Original";
+                if(empty($a))
+                {
+                    $a = ['original','duplicate'];
+                }
+            }
 
-        $output      = base_path('/vendor/cossou/jasperphp/examples');
-        $logopath    = base_path('/public/img');
-        $barcodepath = base_path('/storage/app');
-        $current     = Carbon\Carbon::now();
-        $currenttime = $current->format('Y-m-d H:i:s');
-        $company=DB::table('companies')->where('cmpgstino',$user->user_plant)->first();
-        $invoiceto=DB::table('salesheaders')->where('invoiceno',$invoices[0])->first();
-        $invoiceto=$invoiceto->invoiceto;
-        // $customer=DB::table('customertables')->where('customercode',$invoiceto)->first();
-        $data = DB::table('salesheaders')
-                ->leftJoin('salesdetails', 'salesdetails.invoiceno_id', '=', 'salesheaders.invoiceno')
-                ->select('salesheaders.*','salesdetails.*','salesheaders.podateinword')->where('salesheaders.invoiceno','=', $invoices[0])->get();
-        $datastr='';
-        $invdate=$data[0]->invoicedate;
-        $datastr.=$data[0]->shopcode.
-        preg_replace('/\s+/', '', $data[0]->ponumber).
-        preg_replace('/\s+/', '', $data[0]->customerPartno)."\r\n".
-        preg_replace('/\s+/', '', $data[0]->invoiceno)."\t".
-        preg_replace('/\./', '', $invdate).
-        preg_replace('/\s+/', '', $data[0]->tot_qty)."\t".
-        preg_replace('/\s+/', '', $data[0]->grandtotalamount)."\t".
-        preg_replace('/\s+/', '', $data[0]->producthsncode).'0.00'."\t".
-        preg_replace('/\s+/', '', $data[0]->sgstamount)."\t".preg_replace('/\s+/', '', $data[0]->igstamount)."\t".preg_replace('/\s+/', '', $data[0]->tcs_amount)."\t".
-        preg_replace('/\s+/', '', $data[0]->productsellingrate)."\t".
-        preg_replace('/\s+/', '', $data[0]->taxableamounts)."\t".
-        preg_replace('/\s+/', '', $data[0]->cgstamount)."\t".'0.00'."\t".'0.00'."\t".
-        preg_replace('/\s+/', '', $data[0]->taxableamounts)."\t".'0.00'."\t".
-        "0.00"."\t".'0.00'."\t".preg_replace('/\s+/', '', $data[0]->companyGSTIN)."\t".' '."\t".
-             preg_replace('/\s+/', '', $data[0]->irn_reference_no)."\t";
-        // dd($datastr);
-       $datastr = trim($datastr);
-        $customer_barcode = 'data:image/svg+xml;base64,' . base64_encode(DNS2D::getBarcodeSVG($datastr, "QRCODE", 2, 2));
-        $irn_barcode = 'data:image/svg+xml;base64,' . base64_encode(DNS2D::getBarcodeSVG($data[0]->irn_reference_no."\r\n", "QRCODE", 2, 2));
-        // dd($datastr);
-        $datacount=count($data);
-        $a = ['original','duplicate'];
-             $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount','customer_barcode','irn_barcode']))->setPaper('a4', 'landscape');
-      return $pdf->stream($invoices[0].' - HMIL MRIR.pdf');
-      }
-      else
-      {
-        $all             = $request->get('all');
-        $a=array();
-        $request->get('original')!=null?$a[]='original':0;
-        $request->get('duplicate')!=null?$a[]='duplicate':0;
-        $request->get('triplicate')!=null?$a[]='triplicate':0;
-        $request->get('extra')!=null?$a[]='extra':0;
-        $current     = Carbon\Carbon::now();
-        $currenttime = $current->format('Y-m-d H:i:s');
-        $company=DB::table('companies')->where('cmpgstino',$user->user_plant)->first();
-        $invoiceto=DB::table('salesheaders')->where('invoiceno',$invoices[0])->first();
-        $invoiceto=$invoiceto->invoiceto;
-        // dd("one");
-        // $customer=DB::table('customertables')->where('customercode',$invoiceto)->first();
-        $data = DB::table('salesheaders')
-                ->leftJoin('salesdetails', 'salesdetails.invoiceno_id', '=', 'salesheaders.invoiceno')
-                ->select('salesheaders.*','salesdetails.*','salesheaders.podateinword')
-                ->where('salesheaders.invoiceno','=', $invoices[0])->get();
-                $datastr='';
-        // foreach($data as $datas)
-        // {
-            $invdate=$data[0]->invoicedate;
-             $datastr.=$data[0]->shopcode.''.
-             preg_replace('/\s+/', '', $data[0]->ponumber).
-             preg_replace('/\s+/', '', $data[0]->customerPartno)."\r\n".
-             preg_replace('/\s+/', '', $data[0]->invoiceno)."\t".
-             preg_replace('/\./', '', $invdate).
-             preg_replace('/\s+/', '', $data[0]->tot_qty)."\t".
-             preg_replace('/\s+/', '', $data[0]->grandtotalamount)."\t".
-             preg_replace('/\s+/', '', $data[0]->producthsncode).'0.00'."\t".
-             preg_replace('/\s+/', '', $data[0]->sgstamount)."\t".preg_replace('/\s+/', '', $data[0]->igstamount)."\t".preg_replace('/\s+/', '', $data[0]->tcs_amount)."\t".
-             preg_replace('/\s+/', '', $data[0]->productsellingrate)."\t".
-             preg_replace('/\s+/', '', $data[0]->taxableamounts)."\t".
-             preg_replace('/\s+/', '', $data[0]->cgstamount)."\t".'0.00'."\t".'0.00'."\t".
-             preg_replace('/\s+/', '', $data[0]->taxableamounts)."\t".'0.00'."\t".
-             "0.00"."\t".'0.00'."\t".preg_replace('/\s+/', '', $data[0]->companyGSTIN)."\t".' '."\t".
-             preg_replace('/\s+/', '', $data[0]->irn_reference_no)."\t";
-            // dd($datastr);
-       $datastr = trim($datastr);
-        $customer_barcode = 'data:image/svg+xml;base64,' . base64_encode(DNS2D::getBarcodeSVG($datastr, "QRCODE", 2, 2));
-        $irn_barcode = 'data:image/svg+xml;base64,' . base64_encode(DNS2D::getBarcodeSVG($data[0]->irn_reference_no."\r\n", "QRCODE", 2, 2));
-       $datacount=count($data);
-      if($all == "All")
-       {
-        // dd($all);
-        $a = ['original','duplicate','triplicate','extra'];
-        $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount','customer_barcode','irn_barcode']))->setPaper('a4', 'landscape');
-        return $pdf->stream($invoices[0].'.pdf');
-          // return view('print_invoice.singlepdf',compact('a','data','datacount','customer_barcode','irn_barcode'));
-       }
-        else
-        {
-             //dd($data);
-            $a = ['original','duplicate','triplicate','extra'];
-            $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount','customer_barcode','irn_barcode']))->setPaper('a4', 'landscape');
-            return $pdf->stream($invoices[0].'.pdf');
+            $current     = Carbon\Carbon::now();
+            $currenttime = $current->format('Y-m-d H:i:s');
+            $company=DB::table('companies')->where('cmpgstino',$user->user_plant)->first();
+            $invoiceto=DB::table('salesheaders')->where('invoiceno',$invoices[0])->first();
+            $invoiceto=$invoiceto ? $invoiceto->invoiceto : null;
+
+            $data = DB::table('salesheaders')
+                    ->leftJoin('salesdetails', 'salesdetails.invoiceno_id', '=', 'salesheaders.invoiceno')
+                    ->select('salesheaders.*','salesdetails.*','salesheaders.podateinword')
+                    ->where('salesheaders.invoiceno','=', $invoices[0])->get();
+
+            if (count($data) > 0) {
+                $invdate=$data[0]->invoicedate;
+                $datastr = $data[0]->shopcode.''.
+                    preg_replace('/\s+/', '', $data[0]->ponumber).
+                    preg_replace('/\s+/', '', $data[0]->customerPartno)."\r\n".
+                    preg_replace('/\s+/', '', $data[0]->invoiceno)."\t".
+                    preg_replace('/\./', '', $invdate).
+                    preg_replace('/\s+/', '', $data[0]->tot_qty)."\t".
+                    preg_replace('/\s+/', '', $data[0]->grandtotalamount)."\t".
+                    preg_replace('/\s+/', '', $data[0]->producthsncode).'0.00'."\t".
+                    preg_replace('/\s+/', '', $data[0]->sgstamount)."\t".preg_replace('/\s+/', '', $data[0]->igstamount)."\t".preg_replace('/\s+/', '', $data[0]->tcs_amount)."\t".
+                    preg_replace('/\s+/', '', $data[0]->productsellingrate)."\t".
+                    preg_replace('/\s+/', '', $data[0]->taxableamounts)."\t".
+                    preg_replace('/\s+/', '', $data[0]->cgstamount)."\t".'0.00'."\t".'0.00'."\t".
+                    preg_replace('/\s+/', '', $data[0]->taxableamounts)."\t".'0.00'."\t".
+                    "0.00"."\t".'0.00'."\t".preg_replace('/\s+/', '', $data[0]->companyGSTIN)."\t".' '."\t".
+                    preg_replace('/\s+/', '', $data[0]->irn_reference_no)."\t";
+                $datastr = trim($datastr);
+                $customer_barcode = 'data:image/svg+xml;base64,' . base64_encode(DNS2D::getBarcodeSVG($datastr, "QRCODE", 2, 2));
+                $irn_barcode = 'data:image/svg+xml;base64,' . base64_encode(DNS2D::getBarcodeSVG($data[0]->irn_reference_no."\r\n", "QRCODE", 2, 2));
+                $datacount=count($data);
+
+                $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount','customer_barcode','irn_barcode']))->setPaper('a4', 'portrait');
+
+                if ($request->get('action_type') == 'download' || $request->has('download')) {
+                    $copySuffix = (count($a) == 1) ? '_' . ucfirst($a[0]) : '';
+                    return $pdf->download($invoices[0] . $copySuffix . '.pdf');
+                } else {
+                    return $pdf->stream($invoices[0] . '.pdf');
+                }
+            }
         }
-      }
-    }
-    }
+}
 
     public function store(Request $request)
     {

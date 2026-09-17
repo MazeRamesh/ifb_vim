@@ -61,6 +61,43 @@ tr:nth-child(even) {
     color: #eee;
     font-size: 20px;
 }
+
+.copies-label {
+    font-weight: bold !important;
+    font-size: 15px;
+    color: #000;
+    margin-bottom: 6px;
+    display: block;
+}
+.copies-flex-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 20px;
+    width: 100%;
+}
+.copy-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    margin-right: 15px;
+}
+.copy-item label.invoice-label {
+    display: inline-flex !important;
+    align-items: center !important;
+    font-size: 14px !important;
+    color: #000 !important;
+    font-weight: normal !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    margin-bottom: 0 !important;
+}
+.copy-item label.invoice-label span {
+    margin-left: 0 !important;
+    margin-right: 6px !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+}
 </style>
 @endpush
 <div class="content-wrapper">
@@ -118,45 +155,37 @@ tr:nth-child(even) {
                                             </div>
                                         </div>
                                        <div class="col-md-5 mt-1">
-<!--                                             <div class="checkbox">
-                                                <input type="checkbox" id="check" name="all" class="invoice testone" value="All" />
-                                                <label for="check">
-                                                <span></span>All Copies
-                                                </label>
-                                                <span>
-                                                        <input type="checkbox" id="check1" class="test invoice" name="original" value="Original" />
-                                                        <label for="check1">
-                                                        <span></span>Original
-                                                        </label>
-                                                </span>
-                                                <span>
-                                                        <input type="checkbox" id="check2" class="test invoice" name="duplicate" value="Duplicate" />
-                                                        <label for="check2">
-                                                        <span></span>Duplicate
-                                                        </label>
-                                                </span>
-                                                <span>
-                                                        <input type="checkbox" id="check3" class="test invoice" name="triplicate" value="Triplicate" />
-                                                        <label for="check3">
-                                                        <span></span>Triplicate
-                                                        </label>
-                                                </span>
-                                                <span>
-                                                        <input type="checkbox" id="check4" class="test invoice" name="extra" value="Extra" />
-                                                        <label for="check4">
-                                                        <span></span>Extra
-                                                        </label>
-                                                </span>
-                                            </div> -->
+                                            <label class="copies-label">Copies<b class="imp" style="color: red;">*</b></label>
+                                            <div class="copies-flex-wrapper">
+                                                <div class="copy-item">
+                                                    <input type="checkbox" id="check_f1" name="all" class="invoice testone_f1" value="All" />
+                                                    <label class="invoice-label" for="check_f1"><span></span>All Copies</label>
+                                                </div>
+                                                <div class="copy-item">
+                                                    <input type="checkbox" id="check1_f1" class="test_f1 invoice" checked name="original" value="Original" />
+                                                    <label class="invoice-label" for="check1_f1"><span></span>Original</label>
+                                                </div>
+                                                <div class="copy-item">
+                                                    <input type="checkbox" id="check2_f1" class="test_f1 invoice" name="duplicate" value="Duplicate" />
+                                                    <label class="invoice-label" for="check2_f1"><span></span>Duplicate</label>
+                                                </div>
+                                                <div class="copy-item">
+                                                    <input type="checkbox" id="check3_f1" class="test_f1 invoice" name="triplicate" value="Triplicate" />
+                                                    <label class="invoice-label" for="check3_f1"><span></span>Triplicate</label>
+                                                </div>
+                                                <div class="copy-item">
+                                                    <input type="checkbox" id="check4_f1" class="test_f1 invoice" name="extra" value="Extra" />
+                                                    <label class="invoice-label" for="check4_f1"><span></span>Extra</label>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class=" row button">
-                                            <button type="submit" class=" btn btn-success btn-sm pl-4 pr-4" id="print" disabled>Print</button>
-                                            <!-- <button type="button" id="download" class=" btn btn-danger btn-sm ml-2" disabled>Download</button> -->
-                                            <button type="button" class="btn btn-info text-white btn-sm ml-2 pl-4 pr-4" onclick="Reset()" ng-click="clear($event, $select)">Reset</button>
-                                            <button type="button" class="btn btn-warning text-white btn-sm ml-2 pl-4 pr-4" onclick="Refresh()">Refresh</button>
-
-                                        </div>
+                                            <div class="row button">
+                                                <button type="submit" class="btn btn-success btn-sm pl-4 pr-4" id="print" onclick="setFormAction('print', 'myForm')" disabled>Print</button>
+                                                <button type="button" id="download" class="btn btn-danger btn-sm ml-2 pl-3 pr-3" onclick="setFormAction('download', 'myForm')" disabled>Download</button>
+                                                <button type="button" class="btn btn-info text-white btn-sm ml-2 pl-4 pr-4" onclick="Reset()" ng-click="clear($event, $select)">Reset</button>
+                                                <button type="button" class="btn btn-warning text-white btn-sm ml-2 pl-4 pr-4" onclick="Refresh()">Refresh</button>
+                                            </div>
                                         </div>
 
                                         </div>
@@ -169,8 +198,9 @@ tr:nth-child(even) {
 
                                         <form role="form" action="{{ route('print.printbarcode') }}" method="POST" id="myForm1" autocomplete="off" target="_blank" style="padding-bottom: 10px;">
                         {!! csrf_field() !!}
+                                <input type="hidden" name="action_type" id="action_type1" value="print" />
                                 <div class="col-md-12 border p-3" id="single1">
-                                    <div class="row vim">
+                                    <div class="row vim" style="margin-bottom: 15px;">
 
                                          <div class="col-md-3">
 <div class="form-group clearfix{{ $errors->has('fromdate') ? 'has-error' : '' }}">
@@ -184,65 +214,57 @@ tr:nth-child(even) {
     <input id="datepicker1" class="to" name="todate" style="border: 0px;border-bottom: 2px solid blue;"  placeholder="To date" autocomplete="off" ng-change="changedateunsigned()" ng-model="to"/>
 </div>
 </div>
-                                            <div class="col-md-6 mt-2 code">
-                                            <input name="invoiceto" id="invoiceto" style="display: none;" />
-                                             <input name="invoicenumber1" id="invoicenumber1" style="display: none;" />
-                                        </div>
-                                    </div>
-                                        <div class="row mt-2 vim1">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3">
-             <ui-select ng-model="$parent.InvoiceNO" theme="select2" style="min-width: 250px;" title="Choose a person" append-to-body="true" id="invnum" name="invoicenumber" ng-change="checkinvoiceto();"  required>
+                                        <div class="col-md-4">
+                                            <div class="form-group mb-0">
+                                                <label class="lab">Invoice Number<b class="imp">*</b></label>
+                                                <div class="input-group">
+             <ui-select ng-model="$parent.InvoiceNO" theme="select2" style="width: 100%;" title="Choose a person" append-to-body="true" id="invnum" name="invoicenumber" ng-change="checkinvoiceto();"  required>
               <ui-select-match allow-clear="true" placeholder="Select a Invoice Number...">@{{$select.selected.invoiceno}}</ui-select-match>
               <ui-select-choices repeat="invoice in invoices1 | propsFilter: {invoiceno: $select.search}">
                    <div ng-bind-html="invoice.invoiceno"></div>
               </ui-select-choices>
              </ui-select>
-
                                                 </div>
                                             </div>
                                         </div>
-                                       <div class="col-md-5" style="padding: 5px;display:none">
-                                            <div class="checkbox">
-                                                <input type="checkbox" id="check" name="all" class="invoice testone" value="All" />
-                                                <label class="invoice-label" for="check">
-                                                <span></span>All Copies
-                                                </label>
-                                                <span>
-                                                        <input type="checkbox" id="check1" class="test invoice" checked name="original" value="Original" />
-                                                        <label class="invoice-label" for="check1">
-                                                        <span></span>Original
-                                                        </label>
-                                                </span>
-                                                <span>
-                                                        <input type="checkbox" id="check2" class="test invoice" name="duplicate" value="Duplicate" />
-                                                        <label class="invoice-label" for="check2">
-                                                        <span></span>Duplicate
-                                                        </label>
-                                                </span>
-                                                <span>
-                                                        <input type="checkbox" id="check3" class="test invoice" name="triplicate" value="Triplicate" />
-                                                        <label class="invoice-label" for="check3">
-                                                        <span></span>Triplicate
-                                                        </label>
-                                                </span>
-                                                <span>
-                                                        <input type="checkbox" id="check4" class="test invoice" name="extra" value="Extra" />
-                                                        <label for="check4" class="invoice-label">
-                                                        <span></span>Extra
-                                                        </label>
-                                                </span>
+                                            <div class="col-md-2 code">
+                                            <input name="invoiceto" id="invoiceto" style="display: none;" />
+                                             <input name="invoicenumber1" id="invoicenumber1" style="display: none;" />
+                                        </div>
+                                    </div>
+                                        <div class="row align-items-center" style="margin-top: 15px;">
+                                       <div class="col-md-8">
+                                            <label class="copies-label">Copies<b class="imp" style="color: red;">*</b></label>
+                                            <div class="copies-flex-wrapper">
+                                                <div class="copy-item">
+                                                    <input type="checkbox" id="check" name="all" class="invoice testone" value="All" />
+                                                    <label class="invoice-label" for="check"><span></span>All Copies</label>
+                                                </div>
+                                                <div class="copy-item">
+                                                    <input type="checkbox" id="check1" class="test invoice" checked name="original" value="Original" />
+                                                    <label class="invoice-label" for="check1"><span></span>Original</label>
+                                                </div>
+                                                <div class="copy-item">
+                                                    <input type="checkbox" id="check2" class="test invoice" name="duplicate" value="Duplicate" />
+                                                    <label class="invoice-label" for="check2"><span></span>Duplicate</label>
+                                                </div>
+                                                <div class="copy-item">
+                                                    <input type="checkbox" id="check3" class="test invoice" name="triplicate" value="Triplicate" />
+                                                    <label class="invoice-label" for="check3"><span></span>Triplicate</label>
+                                                </div>
+                                                <div class="copy-item">
+                                                    <input type="checkbox" id="check4" class="test invoice" name="extra" value="Extra" />
+                                                    <label class="invoice-label" for="check4"><span></span>Extra</label>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
-                                            <div class=" row button">
-                                            <button type="submit" class=" btn btn-success btn-sm pl-4 pr-4" id="print1" disabled>Print</button>
-                                            <!-- <button type="button" id="download" class=" btn btn-danger btn-sm ml-2" disabled>Download</button> -->
-                                            <button type="button" class="btn btn-info text-white btn-sm ml-2 pl-4 pr-4" onclick="Reset()" ng-click="clear($event, $select)">Reset</button>
-
-                                        </div>
+                                            <div class="row button" style="float: right;">
+                                                <button type="submit" class="btn btn-success btn-sm pl-4 pr-4" id="print1" onclick="setFormAction('print', 'myForm1')" disabled>Print</button>
+                                                <button type="button" id="download1" class="btn btn-danger btn-sm ml-2 pl-3 pr-3" onclick="setFormAction('download', 'myForm1')" disabled>Download</button>
+                                                <button type="button" class="btn btn-info text-white btn-sm ml-2 pl-4 pr-4" onclick="Reset()" ng-click="clear($event, $select)">Reset</button>
+                                            </div>
                                         </div>
 
                                         </div>
@@ -469,48 +491,153 @@ $(function()
 });
 
 
-function Reset() {
+function downloadCopies(formId) {
+    var form = $('#' + formId);
+    var invoiceNo = form.find('input[name="invoicenumber1"]').val() || form.find('input[name="invoicenumber"]').val();
+    if (!invoiceNo) {
+        alert('Please select an Invoice Number first');
+        return;
+    }
 
+    var copies = [];
+    if (formId === 'myForm1') {
+        if ($('#check').prop('checked')) {
+            copies = ['original', 'duplicate', 'triplicate', 'extra'];
+        } else {
+            if ($('#check1').prop('checked')) copies.push('original');
+            if ($('#check2').prop('checked')) copies.push('duplicate');
+            if ($('#check3').prop('checked')) copies.push('triplicate');
+            if ($('#check4').prop('checked')) copies.push('extra');
+        }
+    } else {
+        if ($('#check_f1').prop('checked')) {
+            copies = ['original', 'duplicate', 'triplicate', 'extra'];
+        } else {
+            if ($('#check1_f1').prop('checked')) copies.push('original');
+            if ($('#check2_f1').prop('checked')) copies.push('duplicate');
+            if ($('#check3_f1').prop('checked')) copies.push('triplicate');
+            if ($('#check4_f1').prop('checked')) copies.push('extra');
+        }
+    }
+
+    if (copies.length === 0) {
+        copies = ['original', 'duplicate'];
+    }
+
+    var token = form.find('input[name="_token"]').val();
+    var actionUrl = form.attr('action');
+
+    copies.forEach(function(copy, index) {
+        setTimeout(function() {
+            var iframeName = 'download_frame_' + index + '_' + Date.now();
+            var iframe = $('<iframe>', {
+                name: iframeName,
+                style: 'display:none;'
+            }).appendTo('body');
+
+            var tempForm = $('<form>', {
+                action: actionUrl,
+                method: 'POST',
+                target: iframeName
+            });
+
+            tempForm.append($('<input>', { type: 'hidden', name: '_token', value: token }));
+            tempForm.append($('<input>', { type: 'hidden', name: 'invoicenumber1', value: invoiceNo }));
+            tempForm.append($('<input>', { type: 'hidden', name: 'invoicenumber', value: invoiceNo }));
+            tempForm.append($('<input>', { type: 'hidden', name: 'action_type', value: 'download' }));
+            tempForm.append($('<input>', { type: 'hidden', name: 'single_copy', value: copy }));
+
+            tempForm.appendTo('body').submit();
+
+            setTimeout(function() {
+                tempForm.remove();
+                iframe.remove();
+            }, 6000);
+        }, index * 400);
+    });
+}
+
+function setFormAction(action, formId) {
+    if (action === 'download') {
+        downloadCopies(formId);
+    } else {
+        var form = $('#' + formId);
+        $('#action_type1').val('print');
+        $('#action_type').val('print');
+        form.attr('target', '_blank');
+        form.submit();
+    }
+}
+
+function Reset() {
        $(".select2-search-choice-close").trigger('click');
        $("#datepicker").val('').trigger('change');
        $("#datepicker1").val('').trigger('change');
-       // $("#invoicetohtml").html('').trigger('change');
-       // $("#invoiceto").val('').trigger('change');
        $("#invoicenumber1").val('').trigger('change');
-       // $("#custcode").html('').trigger('change');
-       // $("#invnum").val('').trigger('change');
+       $("#invoicenumber").val('').trigger('change');
        $('#check').prop("checked", false);
-       $('#check1').prop("checked", false);
+       $('#check1').prop("checked", true);
        $('#check2').prop("checked", false);
        $('#check3').prop("checked", false);
        $('#check4').prop("checked", false);
-        }
+       $('#check_f1').prop("checked", false);
+       $('#check1_f1').prop("checked", true);
+       $('#check2_f1').prop("checked", false);
+       $('#check3_f1').prop("checked", false);
+       $('#check4_f1').prop("checked", false);
+       $("#print1").attr("disabled", true);
+       $("#download1").attr("disabled", true);
+       $("#print").attr("disabled", true);
+       $("#download").attr("disabled", true);
+}
 
 $('.testone').click(function(){
         var val = $(this).prop('checked');
-        // var all = $('#check').prop('checked');
-        console.log(val);
-        if(val)
-        {
-            console.log("sdf")
+        if(val) {
             $('.test').prop("checked", true);
-        }
-        else
-        {
+        } else {
             $('.test').prop("checked", false);
         }
-     })
+});
 
-     $('.test').click(function()
-     {
+$('.test').click(function(){
         var val = $(this).prop('checked');
         var all = $('#check').prop('checked');
-        if((!val) && all)
-        {
-            console.log("sdf")
+        if((!val) && all) {
             $('#check').prop("checked", false);
         }
-     })
+        var allChecked = true;
+        $('.test').each(function() {
+            if(!$(this).prop('checked')) allChecked = false;
+        });
+        if(allChecked) {
+            $('#check').prop("checked", true);
+        }
+});
+
+$('.testone_f1').click(function(){
+        var val = $(this).prop('checked');
+        if(val) {
+            $('.test_f1').prop("checked", true);
+        } else {
+            $('.test_f1').prop("checked", false);
+        }
+});
+
+$('.test_f1').click(function(){
+        var val = $(this).prop('checked');
+        var all = $('#check_f1').prop('checked');
+        if((!val) && all) {
+            $('#check_f1').prop("checked", false);
+        }
+        var allChecked = true;
+        $('.test_f1').each(function() {
+            if(!$(this).prop('checked')) allChecked = false;
+        });
+        if(allChecked) {
+            $('#check_f1').prop("checked", true);
+        }
+});
 
 $(function()
 {
@@ -783,52 +910,18 @@ $scope.readyforsigned=function()
 }
 $scope.checkinvoiceto1=function()
     {
-
         $("#print").attr("disabled", false);
-        console.log($scope.InvoiceNO);
+        $("#download").attr("disabled", false);
+        console.log($scope.invnum);
         $("#invoicenumber").val($scope.invnum.invoiceno);
-        // $("#download").attr("disabled", false);
-       // console.log($scope.invnum);
-       //    $.post("{{route('checkinvoiceto')}}",
-       //                  {
-       //                      invoiceno: $scope.invnum.invoiceno,
-       //                      _token: '{{csrf_token()}}'
-       //                  },
-       //                  function(data)
-       //                  {
-       //                      console.log(data);
-       //                    $("#invoicenumber").val($scope.invnum.invoiceno);
-       //                    $("#invoicetohtml").html(data.customer.customername);
-       //                    $("#custcode").html(data.invoiceto);
-       //                    $("#invoiceto").val(data.invoiceto);
-       //                  }
-       //          );
-
     }
 
 $scope.checkinvoiceto=function()
     {
-
         $("#print1").attr("disabled", false);
+        $("#download1").attr("disabled", false);
         console.log($scope.InvoiceNO);
         $("#invoicenumber1").val($scope.InvoiceNO.invoiceno);
-        // $("#download").attr("disabled", false);
-       // console.log($scope.invnum);
-       //    $.post("{{route('checkinvoiceto')}}",
-       //                  {
-       //                      invoiceno: $scope.invnum.invoiceno,
-       //                      _token: '{{csrf_token()}}'
-       //                  },
-       //                  function(data)
-       //                  {
-       //                      console.log(data);
-       //                    $("#invoicenumber").val($scope.invnum.invoiceno);
-       //                    $("#invoicetohtml").html(data.customer.customername);
-       //                    $("#custcode").html(data.invoiceto);
-       //                    $("#invoiceto").val(data.invoiceto);
-       //                  }
-       //          );
-
     }
 
 });

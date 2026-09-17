@@ -126,7 +126,7 @@ public function DigitalSignPDF(Request $request)
 
         salesheader::where('id',$id)->update(['signstatus'=>"Ready"]); 
        // $pdf = PDF::loadView('print_invoice.singlepdf',compact(['data','a','datacount','customer_barcode','irn_barcode']))->setPaper('a4', 'landscape');
-        $pdf = PDF::loadView('digitalsign.printpdf',compact(['data','a','datacount','customer_barcode','irn_barcode']))->setPaper('a4', 'landscape');
+        $pdf = PDF::loadView('digitalsign.printpdf',compact(['data','a','datacount','customer_barcode','irn_barcode']))->setPaper('a4', 'portrait');
         // return $pdf->stream($invoices[$i].' - HMIL MRIR.pdf');
         Storage::put("public/UnSigned/".$data[0]->invoiceno.".pdf", $pdf->output());
     }
